@@ -1,0 +1,5 @@
+"use client";
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+export default function Page(){ const [prefs,setPrefs]=useState({trend:"metallic",budget:"£500"} as any); return <main className="max-w-4xl mx-auto p-4 space-y-3"><Card className="p-4"><CardTitle>Targeted Advertising (demo)</CardTitle><div className="grid sm:grid-cols-2 gap-2"><Input placeholder="Trend interest" value={prefs.trend} onChange={e=>setPrefs((x:any)=>({...x,trend:e.target.value}))}/><Input placeholder="Campaign budget" value={prefs.budget} onChange={e=>setPrefs((x:any)=>({...x,budget:e.target.value}))}/></div><div className="mt-2 text-sm">Sponsored Slots Preview:</div><div className="grid sm:grid-cols-2 gap-2 mt-2"><div className="border rounded-xl p-3">Ad: {prefs.trend} micro‑bags — CPM £4.2 (demo)</div><div className="border rounded-xl p-3">Ad: {prefs.trend} jackets — CPM £3.7 (demo)</div></div><div className="text-xs opacity-70 mt-2">Analytics placeholders will appear here once events are tracked.</div></Card></main>; }

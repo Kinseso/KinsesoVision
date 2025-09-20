@@ -1,0 +1,1 @@
+export default function Page(){return <main className='max-w-4xl mx-auto p-6 space-y-3'><h1 className='text-2xl font-semibold'>Profiles (demo)</h1><p>Create and edit user or brand profiles here later. See Social for basic profile info.</p></main>;}

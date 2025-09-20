@@ -1,0 +1,1 @@
+export default function Page(){return <main className='max-w-4xl mx-auto p-6 space-y-3'><h1 className='text-2xl font-semibold'>About KinsesoVision</h1><p>All-in-one fashion-tech: analytics, AI, social, marketplace, insurance, education.</p></main>;}
