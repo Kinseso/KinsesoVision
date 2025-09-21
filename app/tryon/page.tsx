@@ -1,6 +1,22 @@
 "use client";
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-export default function Page(){ const [photo,setPhoto]=useState(""); const [overlay,setOverlay]=useState("bag"); return <main className="max-w-3xl mx-auto p-4 space-y-4"><Card className="p-4"><CardTitle className="mb-2">Virtual Try‑On (demo)</CardTitle><div className="grid sm:grid-cols-3 gap-2"><Input placeholder="Paste photo URL" value={photo} onChange={e=>setPhoto(e.target.value)}/><select className="border rounded-xl px-2" value={overlay} onChange={e=>setOverlay(e.target.value)}><option value="bag">Bag</option><option value="jacket">Jacket</option><option value="glasses">Glasses</option></select><Button onClick={()=>alert("Overlay applied (demo).")}>Apply</Button></div><div className="mt-3 grid sm:grid-cols-2 gap-3"><div className="border rounded-xl overflow-hidden">{photo? <img src={photo} className="w-full"/> : <div className="p-6 text-sm opacity-70">Your photo preview</div>}</div><div className="border rounded-xl p-4 text-sm">3D Body Model (placeholder): height, chest, waist controls can go here.</div></div></Card></main>; }
+export default function Page(){
+  const [photo,setPhoto]=useState(""); const [overlay,setOverlay]=useState("bag");
+  return <main className="max-w-3xl mx-auto p-4 space-y-4">
+    <Card className="p-4">
+      <CardTitle className="mb-2">Virtual Try‑On (demo)</CardTitle>
+      <div className="grid sm:grid-cols-3 gap-2">
+        <Input placeholder="Paste photo URL" value={photo} onChange={e=>setPhoto(e.target.value)}/>
+        <select className="border rounded-xl px-2" value={overlay} onChange={e=>setOverlay(e.target.value)}><option value="bag">Bag</option><option value="jacket">Jacket</option><option value="glasses">Glasses</option></select>
+        <Button onClick={()=>alert("Overlay applied (demo).")}>Apply</Button>
+      </div>
+      <div className="mt-3 grid sm:grid-cols-2 gap-3">
+        <div className="border rounded-xl overflow-hidden">{photo? <img src={photo} className="w-full"/> : <div className="p-6 text-sm opacity-70">Your photo preview</div>}</div>
+        <div className="border rounded-xl p-4 text-sm">3D Body Model (placeholder): height, chest, waist controls can go here.</div>
+      </div>
+    </Card>
+  </main>;
+}

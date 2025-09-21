@@ -1,9 +1,67 @@
 "use client";
 import { useMemo, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Papa from "papaparse";
-import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer, Legend, AreaChart, Area } from "recharts";
-export default function Page(){ const [rows,setRows]=useState<any[]>([]); const [uk,setUk]=useState(false); const [brief,setBrief]=useState(""); const [ask,setAsk]=useState(""); const [ans,setAns]=useState(""); const file=(f:File)=>Papa.parse(f,{header:true,dynamicTyping:true,skipEmptyLines:true,complete:r=>setRows((r.data as any[]).filter(x=>x&&x.Date&&x.Revenue!=null&&x.Units!=null))}); const data=useMemo(()=>uk?rows.filter(r=>(r.Country||"UK").toString().toLowerCase().includes("uk")):rows,[rows,uk]); const kpi=useMemo(()=>{const rev=data.reduce((a,b)=>a+(+b.Revenue||0),0); const u=data.reduce((a,b)=>a+(+b.Units||0),0); return {rev,u,aov:u?rev/u:0};},[data]); const byM=useMemo(()=>{const m:any={}; data.forEach(r=>{const d=new Date(r.Date); const k=isNaN(d as any)?(r.Date||""):`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`; m[k]=m[k]||{Date:k,Revenue:0,Units:0}; m[k].Revenue+=(+r.Revenue||0); m[k].Units+=(+r.Units||0);}); return Object.values(m).sort((a:any,b:any)=>a.Date.localeCompare(b.Date));},[data]); const gen=()=>{const L=[] as string[]; L.push(`Scope: ${uk?"UK":"Global"}. Revenue £${kpi.rev.toFixed(0)}, Units ${kpi.u.toFixed?.()?kpi.u.toFixed(0):kpi.u}, AOV £${kpi.aov.toFixed(2)}.`); if(byM.length>=3){const last=(byM as any)[byM.length-1].Revenue; const prev=(byM as any)[byM.length-2].Revenue; const d=last-prev; const pct=prev>0?(d/prev*100).toFixed(1):"0"; L.push(`Momentum: last vs prev £${d.toFixed(0)} (${pct}%).`);} if(/inventory|stock|sell.?through|otb/i.test(ask)) L.push("Inventory: target sell‑through 70–80%; 12‑wk rolling forecast; rebalance weekly."); if(/pricing|markdown|discount|price/i.test(ask)) L.push("Pricing: protect heroes; A/B ladders; markdown when sell‑through < 40% week 6."); if(/marketing|roi|roas/i.test(ask)) L.push("Marketing: shift to channels with positive RoAS last 30 days; test creator whitelisting."); if(/trend|forecast|demand/i.test(ask)) L.push("Demand: use 3‑mo moving average; watch MoM variance >20%."); setAns(L.join("\n")); }; const briefOut=()=>{const t=`# Decision Brief\n**Scope:** ${uk?"UK":"Global"}\nRevenue £${kpi.rev.toFixed(0)}; Units ${kpi.u}; AOV £${kpi.aov.toFixed(2)}\n\n${brief}`; const blob=new Blob([t],{type:'text/markdown'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='decision-brief.md'; a.click(); URL.revokeObjectURL(url);}; return <main className="max-w-7xl mx-auto p-4 space-y-4"><h1 className="text-xl font-semibold">Decision Analytics</h1><Card className="p-4 space-y-2"><CardTitle>Upload CSV (Date, Revenue, Units, Country, Category?)</CardTitle><div className="flex gap-2 items-center flex-wrap"><input type="file" accept=".csv" onChange={e=>{const f=e.target.files?.[0]; if(f) file(f);}} className="border rounded-xl p-2"/><label className="text-sm flex items-center gap-2"><input type="checkbox" checked={uk} onChange={e=>setUk(e.target.checked)}/> UK only</label></div></Card><div className="grid md:grid-cols-3 gap-3"><Card><CardContent className="p-4"><div className="text-xs opacity-70">Revenue</div><div className="text-2xl font-semibold">£{kpi.rev.toFixed(0)}</div></CardContent></Card><Card><CardContent className="p-4"><div className="text-xs opacity-70">Units</div><div className="text-2xl font-semibold">{kpi.u}</div></CardContent></Card><Card><CardContent className="p-4"><div className="text-xs opacity-70">AOV</div><div className="text-2xl font-semibold">£{kpi.aov.toFixed(2)}</div></CardContent></Card></div><Card className="p-4"><CardTitle className="mb-2">Revenue & Units by Month</CardTitle><div style={{width:'100%',height:280}}><ResponsiveContainer><LineChart data={byM}><CartesianGrid strokeDasharray="3 3"/><XAxis dataKey="Date"/><YAxis/><Tooltip/><Legend/><Line type="monotone" dataKey="Revenue" stroke="#000" strokeWidth={2}/><Line type="monotone" dataKey="Units" stroke="#6b7280" strokeWidth={2}/></LineChart></ResponsiveContainer></div></Card><Card className="p-4 space-y-2"><CardTitle>AI Insights</CardTitle><Textarea placeholder="Ask about pricing, inventory, demand, marketing…" value={ask} onChange={e=>setAsk(e.target.value)}/><Button onClick={gen}>Generate</Button>{ans && <pre className="bg-gray-50 p-3 rounded-xl text-sm whitespace-pre-wrap">{ans}</pre>}</Card><Card className="p-4"><CardTitle>Decision Brief</CardTitle><Textarea value={brief} onChange={e=>setBrief(e.target.value)} placeholder="Write your conclusions and actions…"/><div className="mt-2"><Button onClick={briefOut}>Export .md</Button></div></Card></main>; } 
+import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer, Legend } from "recharts";
+export default function Page(){
+  const [rows,setRows]=useState<any[]>([]);
+  const [uk,setUk]=useState(false);
+  const [brief,setBrief]=useState("");
+  const [ask,setAsk]=useState("");
+  const [ans,setAns]=useState("");
+  const file=(f:File)=>Papa.parse(f,{header:true,dynamicTyping:true,skipEmptyLines:true,complete:r=>setRows((r.data as any[]).filter(x=>x&&x.Date&&x.Revenue!=null&&x.Units!=null))});
+  const data=useMemo(()=>uk?rows.filter(r=>(r.Country||"UK").toString().toLowerCase().includes("uk")):rows,[rows,uk]);
+  const kpi=useMemo(()=>{const rev=data.reduce((a,b)=>a+(+b.Revenue||0),0); const u=data.reduce((a,b)=>a+(+b.Units||0),0); return {rev,u,aov:u?rev/u:0};},[data]);
+  const byM=useMemo(()=>{const m:any={}; data.forEach(r=>{const d=new Date(r.Date); const k=isNaN(d as any)?(r.Date||""):`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`; m[k]=m[k]||{Date:k,Revenue:0,Units:0}; m[k].Revenue+=(+r.Revenue||0); m[k].Units+=(+r.Units||0);}); return Object.values(m).sort((a:any,b:any)=>a.Date.localeCompare(b.Date));},[data]);
+  const gen=()=>{const L=[] as string[]; L.push(`Scope: ${uk?"UK":"Global"}. Revenue £${kpi.rev.toFixed(0)}, Units ${kpi.u}, AOV £${kpi.aov.toFixed(2)}.`);
+    if(byM.length>=3){const last=(byM as any)[byM.length-1].Revenue; const prev=(byM as any)[byM.length-2].Revenue; const d=last-prev; const pct=prev>0?(d/prev*100).toFixed(1):"0"; L.push(`Momentum: last vs prev £${d.toFixed(0)} (${pct}%).`);}
+    if(/inventory|stock|sell.?through|otb/i.test(ask)) L.push("Inventory: target sell‑through 70–80%; 12‑wk rolling forecast; rebalance weekly.");
+    if(/pricing|markdown|discount|price/i.test(ask)) L.push("Pricing: protect heroes; A/B ladders; markdown when sell‑through < 40% week 6.");
+    if(/marketing|roi|roas/i.test(ask)) L.push("Marketing: shift to channels with positive RoAS last 30 days; test creator whitelisting.");
+    if(/trend|forecast|demand/i.test(ask)) L.push("Demand: use 3‑mo moving average; watch MoM variance >20%.");
+    setAns(L.join("\n"));
+  };
+  const briefOut=()=>{const t=`# Decision Brief\n**Scope:** ${uk?"UK":"Global"}\nRevenue £${kpi.rev.toFixed(0)}; Units ${kpi.u}; AOV £${kpi.aov.toFixed(2)}\n\n${brief}`; const blob=new Blob([t],{type:'text/markdown'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='decision-brief.md'; a.click(); URL.revokeObjectURL(url);};
+  return <main className="max-w-7xl mx-auto p-4 space-y-4">
+    <h1 className="text-xl font-semibold">Decision Analytics</h1>
+    <Card className="p-4 space-y-2">
+      <CardTitle>Upload CSV (Date, Revenue, Units, Country, Category?)</CardTitle>
+      <div className="flex gap-2 items-center flex-wrap">
+        <input type="file" accept=".csv" onChange={e=>{const f=e.target.files?.[0]; if(f) file(f);}} className="border rounded-xl p-2"/>
+        <label className="text-sm flex items-center gap-2"><input type="checkbox" checked={uk} onChange={e=>setUk(e.target.checked)}/> UK only</label>
+      </div>
+    </Card>
+    <div className="grid md:grid-cols-3 gap-3">
+      <Card><CardContent className="p-4"><div className="text-xs opacity-70">Revenue</div><div className="text-2xl font-semibold">£{kpi.rev.toFixed(0)}</div></CardContent></Card>
+      <Card><CardContent className="p-4"><div className="text-xs opacity-70">Units</div><div className="text-2xl font-semibold">{kpi.u}</div></CardContent></Card>
+      <Card><CardContent className="p-4"><div className="text-xs opacity-70">AOV</div><div className="text-2xl font-semibold">£{kpi.aov.toFixed(2)}</div></CardContent></Card>
+    </div>
+    <Card className="p-4">
+      <CardTitle className="mb-2">Revenue & Units by Month</CardTitle>
+      <div style={{width:'100%',height:280}}>
+        <ResponsiveContainer>
+          <LineChart data={byM}>
+            <CartesianGrid strokeDasharray="3 3"/>
+            <XAxis dataKey="Date"/><YAxis/><Tooltip/><Legend/>
+            <Line type="monotone" dataKey="Revenue" stroke="#000" strokeWidth={2}/>
+            <Line type="monotone" dataKey="Units" stroke="#6b7280" strokeWidth={2}/>
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+    </Card>
+    <Card className="p-4 space-y-2">
+      <CardTitle>AI Insights</CardTitle>
+      <Textarea placeholder="Ask about pricing, inventory, demand, marketing…" value={ask} onChange={e=>setAsk(e.target.value)}/>
+      <Button onClick={gen}>Generate</Button>
+      {ans && <pre className="bg-gray-50 p-3 rounded-xl text-sm whitespace-pre-wrap">{ans}</pre>}
+    </Card>
+    <Card className="p-4">
+      <CardTitle>Decision Brief</CardTitle>
+      <Textarea value={brief} onChange={e=>setBrief(e.target.value)} placeholder="Write your conclusions and actions…"/>
+      <div className="mt-2"><Button onClick={briefOut}>Export .md</Button></div>
+    </Card>
+  </main>;
+}

@@ -6,7 +6,7 @@ node_modules/
 out/
 dist/
 
-# Logs & temp
+# Logs
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -17,5 +17,9 @@ yarn-error.log*
 .env
 .env.local
 .vercel/
+
+# OS
 .DS_Store
+
+# Archives
 *.zip
