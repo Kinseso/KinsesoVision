@@ -1,6 +1,6 @@
 {
-  "name": "kinsesovision-v10",
-  "version": "1.0.0",
+  "name": "kinsesovision-web-v12",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,22 +11,11 @@
     "next": "14.2.5",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "framer-motion": "11.5.5",
-    "lucide-react": "0.441.0",
-    "recharts": "2.12.7",
-    "papaparse": "5.4.1",
     "@supabase/supabase-js": "2.45.4",
-    "@supabase/auth-ui-react": "^0.4.7",
+    "@supabase/auth-ui-react": "latest",
     "@supabase/auth-ui-shared": "latest",
-    "stripe": "16.5.0"
-  },
-  "devDependencies": {
-    "autoprefixer": "10.4.19",
-    "postcss": "8.4.41",
+    "stripe": "16.5.0",
     "tailwindcss": "3.4.10",
-    "typescript": "5.5.4",
-    "@types/react": "18.3.3",
-    "@types/react-dom": "18.3.0",
-    "@types/node": "20.14.12"
+    "framer-motion": "11.5.5"
   }
 }

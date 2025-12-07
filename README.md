@@ -1,35 +1,32 @@
-# KinsesoVision v9 (v7 merged + v8 extras)
+# KinsesoVision v12 (Scaffold)
 
-## Features
-- Social network (feed, likes, comments, follow, friend requests)
-- Community Forum
-- Showcase competition + public voting
-- Insurance marketplace (brands ↔ insurers)
-- Education hub
-- Trends, Influencers/Deals, Ads targeting demo
-- Marketplace with Buy/Resell + card/crypto demo buttons
-- Analytics: CSV → KPIs, charts, AI insights (heuristic rules), Decision Brief export
-- Chat assistant (demo)
-- Profiles, About, Contact
-- Blog (National / Tech / Fashion)
-- Header with logo and footer with LinkedIn
-- robots.txt & sitemap.xml
+This package is a scaffold for KinsesoVision v12 (Web + Mobile stubs). It is a starting point to build the full platform you described.
 
-## Run locally
-```bash
-npm install
-npm run dev
-# open http://localhost:3000
-```
+## What's included
+- Next.js web scaffold (app dir) with login (Supabase magic link), landing page, SQL schema, and API placeholder for Stripe checkout.
+- Mobile Expo app stub in /mobile with initial screen and instructions.
+- SQL schema for Supabase (service_requests, posts_blog, evidence_records).
 
-## Deploy (Vercel via GitHub)
-```bash
-git add .
-git commit -m "v9 full merge"
-git push
-# Vercel will auto-build and deploy
-```
+## How to deploy (web)
+1. In Vercel, create a new project from this repo branch (or upload files).
+2. Add environment variables in Vercel:
+   - NEXT_PUBLIC_SUPABASE_URL
+   - NEXT_PUBLIC_SUPABASE_ANON_KEY
+   - STRIPE_PUBLISHABLE_KEY
+   - STRIPE_SECRET_KEY
+   - STRIPE_WEBHOOK_SECRET
+   - SITE_URL (e.g. https://kinsesogroups.co.uk)
+3. In Supabase run: web/sql/schema_v12.sql
+4. Push to GitHub and redeploy in Vercel.
 
-## Notes
-- Replace `/public/logo.png` with your final logo.
-- Ensure `.gitignore` keeps `node_modules`, `.next`, etc. out of git.
+## Mobile
+We included a simple Expo app stub at /mobile. To run locally:
+1. Install Expo CLI: npm install -g expo-cli
+2. cd mobile
+3. npm install
+4. expo start
+
+For production mobile app you will need Apple/Google developer accounts and to build native binaries.
+
+## Evidence Engine notes
+- This scaffold includes a schema for evidence_records, but real-time secure streaming and tamper-proof storage requires additional infra (S3, WebRTC ingestion, TURN, ffmpeg transcoding, mobile native background upload).
