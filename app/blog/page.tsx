@@ -1,8 +1,8 @@
-import { Card } from "../../src/components/ui/card";
 import { Badge } from "../../src/components/ui/badge";
-import { Button } from "../../src/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "../../src/components/ui/card";
 import { Input } from "../../src/components/ui/input";
-import { Textarea } from "../../src/components/ui/textarea";
+import { Button } from "../../src/components/ui/button";
+import { Textarea } from "../../src/components/ui/textarea";;
 
 const mockPosts = [
   {
@@ -47,10 +47,10 @@ export default function BlogPage() {
               <Badge>{post.tag}</Badge>
               <h2 className="text-lg font-semibold">{post.title}</h2>
               <p className="text-sm text-gray-600">{post.intro}</p>
-              <Button variant="outline" type="button">
-                Read more
-              </Button>
-            </Card>
+             <Button variant="secondary" type="button">
+             Read more
+             </Button>
+             </Card>
           ))}
         </div>
 

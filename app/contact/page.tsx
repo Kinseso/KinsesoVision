@@ -1,4 +1,11 @@
-"use client";import { useState } from "react";import { Input } from "../../src/components/ui/input";import { Textarea } from "../../src/components/ui/textarea";import { Button } from "../../src/components/ui/button";
+"use client";
+
+import { useState } from "react";
+import { Badge } from "../../src/components/ui/badge";
+import { Card, CardHeader, CardTitle, CardContent } from "../../src/components/ui/card";
+import { Input } from "../../src/components/ui/input";
+import { Button } from "../../src/components/ui/button";
+import { Textarea } from "../../src/components/ui/textarea";
 export default function Page(){ const [n,setN]=useState(""); const [e,setE]=useState(""); const [m,setM]=useState(""); const [ok,setOk]=useState(false);
   return <main className="max-w-md mx-auto p-6 space-y-3"><h1 className="text-2xl font-semibold">Contact Us</h1><Input placeholder="Your name" value={n} onChange={ev=>setN(ev.target.value)}/><Input placeholder="Your email" value={e} onChange={ev=>setE(ev.target.value)}/><Textarea placeholder="Message" value={m} onChange={ev=>setM(ev.target.value)}/><Button onClick={()=>setOk(true)}>Send</Button>{ok && <p className="text-sm text-green-700">Thanks! (Demo) Your message would be sent to the team.</p>}</main>;
 }

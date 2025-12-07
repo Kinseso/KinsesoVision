@@ -1,8 +1,10 @@
 "use client";
-import { useMemo, useState } from "react";
-import { Card } from "../../src/components/ui/card";
-import { Button } from "../../src/components/ui/button";
+import React, { useState, useMemo } from "react";
 import { Badge } from "../../src/components/ui/badge";
+import { Card, CardHeader, CardTitle, CardContent } from "../../src/components/ui/card";
+import { Input } from "../../src/components/ui/input";
+import { Button } from "../../src/components/ui/button";
+import { Textarea } from "../../src/components/ui/textarea";;
 export default function Page(){
   const trends=[{tag:"metallic"},{tag:"denim"},{tag:"quiet luxury"},{tag:"eco‑knit"},{tag:"y2k"}];
   const [q,setQ]=useState("");

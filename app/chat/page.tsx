@@ -1,8 +1,10 @@
 "use client";
 import { useState } from "react";
-import { Card } from "../../src/components/ui/card";
+import { Badge } from "../../src/components/ui/badge";
+import { Card, CardHeader, CardTitle, CardContent } from "../../src/components/ui/card";
 import { Input } from "../../src/components/ui/input";
 import { Button } from "../../src/components/ui/button";
+import { Textarea } from "../../src/components/ui/textarea";;
 export default function Page(){
   const [msgs,setMsgs]=useState([{role:"bot",text:"Hi! I’m the KinsesoVision assistant. Ask me about analytics, pricing, inventory, trends, deployment, or payments."}] as {role:"bot"|"you",text:string}[]);
   const [text,setText]=useState("");

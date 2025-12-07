@@ -1,7 +1,9 @@
 "use client";
-import { Card } from "../../src/components/ui/card";
-import { Button } from "../../src/components/ui/button";
 import { Badge } from "../../src/components/ui/badge";
+import { Card, CardHeader, CardTitle, CardContent } from "../../src/components/ui/card";
+import { Input } from "../../src/components/ui/input";
+import { Button } from "../../src/components/ui/button";
+import { Textarea } from "../../src/components/ui/textarea";;
 export default function Page(){
   const partners=[{name:"@luna.styles", reach:"120k", niche:"Handbags"},{name:"@edenwear", reach:"85k", niche:"Sustainable"}];
   return <main className="max-w-4xl mx-auto p-4 space-y-3">

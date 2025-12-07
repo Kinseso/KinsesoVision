@@ -1,8 +1,10 @@
 "use client";
 import { useState } from "react";
-import { Card } from "../../src/components/ui/card";
+import { Badge } from "../../src/components/ui/badge";
+import { Card, CardHeader, CardTitle, CardContent } from "../../src/components/ui/card";
+import { Input } from "../../src/components/ui/input";
 import { Button } from "../../src/components/ui/button";
-import { Badge } from "../../src/components/ui/badge";;
+import { Textarea } from "../../src/components/ui/textarea";;
 export default function Page(){
   const profiles=[{id:1,handle:"@you",name:"You",isCompany:false},{id:2,handle:"@novastudio",name:"NovaStudio",isCompany:true},{id:3,handle:"@aya",name:"Aya M.",isCompany:false},{id:4,handle:"@restitch",name:"ReStitch",isCompany:true}];
   const current=1;

@@ -1,6 +1,7 @@
+import { Card, CardHeader, CardTitle, CardContent } from "../../src/components/ui/card";
+import { Input } from "../../src/components/ui/input";
 import { Button } from "../../src/components/ui/button";
 import { Textarea } from "../../src/components/ui/textarea";
-
 export default function AnalyticsPage() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-50">
