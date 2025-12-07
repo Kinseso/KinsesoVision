@@ -1,9 +1,9 @@
 "use client";
 import { useMemo, useState } from "react";
-import { Card, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
+import { Card } from "../../src/components/ui/card";
+import { Button } from "../../src/components/ui/button";
+import { Input } from "../../src/components/ui/input";
+import { Badge } from "../../src/components/ui/badge";
 export default function Page(){
   const seed=[{id:1,name:"Luna Silver Micro‑Bag",price:59,eco:true,curated:true,image:"https://images.unsplash.com/photo-1540574163026-643ea20ade25?q=80&w=1200&auto=format&fit=crop",tags:["metallic","bag"]},{id:2,name:"Patchwork Denim Jacket",price:89,eco:false,curated:false,image:"https://images.unsplash.com/photo-1520974735194-3944a9a8b86b?q=80&w=1200&auto=format&fit=crop",tags:["denim","jacket"]}];
   const [items,setItems]=useState(seed as any[]);

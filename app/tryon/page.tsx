@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import { Card, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Card } from "../../src/components/ui/card";
+import { Button } from "../../src/components/ui/button";
+import { Badge } from "../../src/components/ui/badge";
 export default function Page(){
   const [photo,setPhoto]=useState(""); const [overlay,setOverlay]=useState("bag");
   return <main className="max-w-3xl mx-auto p-4 space-y-4">

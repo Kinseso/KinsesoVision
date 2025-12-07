@@ -1,10 +1,8 @@
 "use client";
 import { useState } from "react";
-import { Card, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
+import { Card } from "../../src/components/ui/card";
+import { Button } from "../../src/components/ui/button";
+import { Badge } from "../../src/components/ui/badge";;
 export default function Page(){
   const profiles=[{id:1,handle:"@you",name:"You",isCompany:false},{id:2,handle:"@novastudio",name:"NovaStudio",isCompany:true},{id:3,handle:"@aya",name:"Aya M.",isCompany:false},{id:4,handle:"@restitch",name:"ReStitch",isCompany:true}];
   const current=1;

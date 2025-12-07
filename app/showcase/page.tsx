@@ -1,9 +1,8 @@
 "use client";
 import { useState } from "react";
-import { Card, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+import { Card } from "../../src/components/ui/card";
+import { Button } from "../../src/components/ui/button";
+import { Badge } from "../../src/components/ui/badge";
 export default function Page(){
   const [entries,setEntries]=useState([{id:1,title:"Aurora Dress",img:"https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1200&auto=format&fit=crop",votes:12},{id:2,title:"Neo Denim Set",img:"https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?q=80&w=1200&auto=format&fit=crop",votes:8}]);
   const [title,setTitle]=useState(""); const [img,setImg]=useState("");

@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
-import { Card, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+import { Card } from "../../src/components/ui/card";
+import { Button } from "../../src/components/ui/button";
+import { Input } from "../../src/components/ui/input";
+import { Badge } from "../../src/components/ui/badge";
 export default function Page(){
   const insurers=[{id:100,name:"CoverThread",region:"UK",tags:["inventory","equipment","events"]},{id:101,name:"StitchSure",region:"EU/UK",tags:["product liability","returns"]}];
   const packages=[{id:900,insurerId:100,title:"Boutique Inventory Shield",premium:"£39/mo",coverage:"Stock theft, water damage",for:["SME brands"]},{id:901,insurerId:101,title:"Product Liability Lite",premium:"£59/mo",coverage:"Claims from defects (caps)",for:["Designers","D2C"]}];

@@ -1,6 +1,7 @@
 "use client";
-import { Card, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card } from "../../src/components/ui/card";
+import { Button } from "../../src/components/ui/button";
+import { Badge } from "../../src/components/ui/badge";
 export default function Page(){
   const partners=[{name:"@luna.styles", reach:"120k", niche:"Handbags"},{name:"@edenwear", reach:"85k", niche:"Sustainable"}];
   return <main className="max-w-4xl mx-auto p-4 space-y-3">

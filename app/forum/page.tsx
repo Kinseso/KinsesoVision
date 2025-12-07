@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
-import { Card, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Card } from "../../src/components/ui/card";
+import { Button } from "../../src/components/ui/button";
+import { Input } from "../../src/components/ui/input";
+import { Textarea } from "../../src/components/ui/textarea";
 export default function Page(){
   const [threads,setThreads]=useState([{id:1,title:"How to price limited drops?",body:"What frameworks do you use for scarcity without hurting brand?",replies:["Use ladder pricing + controlled restock."]}]);
   const [title,setTitle]=useState(""); const [body,setBody]=useState(""); const [reply,setReply]=useState({} as any);
