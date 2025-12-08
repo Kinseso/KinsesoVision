@@ -128,26 +128,54 @@ export default function CloudPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex flex-wrap gap-2 text-xs">
-              <Badge
-                variant={filter === "All" ? "default" : "outline"}
-                className="cursor-pointer"
-                onClick={() => setFilter("All")}
-              >
-                All
-              </Badge>
-              {(["Business Plan", "Financials", "IP", "Contracts", "Impact", "Team"] as EvidenceType[]).map(
-                (cat) => (
-                  <Badge
-                    key={cat}
-                    variant={filter === cat ? "default" : "outline"}
-                    className="cursor-pointer"
-                    onClick={() => setFilter(cat)}
-                  >
-                    {cat}
-                  </Badge>
-                )
-              )}
-            </div>
+  <Badge
+    variant={filter === "All" ? "green" : "secondary"}
+    className="cursor-pointer"
+    onClick={() => setFilter("All")}
+  >
+    All
+  </Badge>
+
+  <Badge
+    variant={filter === "Dashcams" ? "green" : "secondary"}
+    className="cursor-pointer"
+    onClick={() => setFilter("Dashcams")}
+  >
+    Dashcams
+  </Badge>
+
+  <Badge
+    variant={filter === "CCTV" ? "green" : "secondary"}
+    className="cursor-pointer"
+    onClick={() => setFilter("CCTV")}
+  >
+    CCTV
+  </Badge>
+
+  <Badge
+    variant={filter === "Home" ? "green" : "secondary"}
+    className="cursor-pointer"
+    onClick={() => setFilter("Home")}
+  >
+    Home cameras
+  </Badge>
+
+  <Badge
+    variant={filter === "Bodycam" ? "green" : "secondary"}
+    className="cursor-pointer"
+    onClick={() => setFilter("Bodycam")}
+  >
+    Bodycams
+  </Badge>
+
+  <Badge
+    variant={filter === "Vehicle" ? "green" : "secondary"}
+    className="cursor-pointer"
+    onClick={() => setFilter("Vehicle")}
+  >
+    Vehicle cameras
+  </Badge>
+</div>
 
             <div className="overflow-hidden rounded-lg border border-slate-800 bg-slate-950/40">
               <table className="w-full text-left text-xs text-slate-200 sm:text-sm">
