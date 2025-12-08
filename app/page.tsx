@@ -1,123 +1,148 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Button } from "../src/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "../src/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/card";
 
 export default function HomePage() {
   const router = useRouter();
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-50">
-      {/* Hero */}
-      <section className="px-6 py-16 md:px-12 lg:px-24 lg:py-24 grid gap-12 lg:grid-cols-2 items-center">
+    <div className="space-y-12">
+      {/* HERO */}
+      <section className="grid gap-10 md:grid-cols-[1.2fr,1fr] items-center">
         <div>
-          <p className="text-xs uppercase tracking-[0.25em] text-emerald-400 mb-4">
-            Kinseso Vision – v12.0
+          <p className="mb-3 inline-flex rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-300">
+            v12 · Visa-ready fashion innovation OS
           </p>
-          <h1 className="text-3xl md:text-5xl font-semibold leading-tight mb-4">
-            AI-driven fashion, traction metrics and cloud evidence for
-            <span className="text-emerald-400"> Innovator Founder Visa</span>.
+          <h1 className="bg-gradient-to-br from-emerald-300 via-sky-300 to-fuchsia-300 bg-clip-text text-4xl font-semibold tracking-tight text-transparent sm:text-5xl lg:text-6xl">
+            Turn fashion ideas into a{" "}
+            <span className="underline decoration-emerald-400/70">
+              fundable, visa-ready venture
+            </span>
+            .
           </h1>
-          <p className="text-sm md:text-base text-slate-300 max-w-xl mb-6">
-            Kinseso Vision unifies trend analytics, creator campaigns, marketplace
-            pilots and investor-ready evidence into one workspace. Designed so
-            founders can clearly demonstrate innovation, traction and scalability
-            to Home Office and investors.
+          <p className="mt-5 max-w-xl text-sm text-slate-300 sm:text-base">
+            KinsesoVision centralises your market data, IP, cloud docs, and
+            video portfolio so founders, lawyers and caseworkers all see the
+            same story – clearly structured for Innovator / Founder visa routes.
           </p>
 
-          <div className="flex flex-wrap gap-3 mb-6">
+          <div className="mt-6 flex flex-wrap gap-4">
             <Button
-              className="px-6"
-              onClick={() => router.push("/login")}
+              size="lg"
+              onClick={() => router.push("/onboarding")}
+              className="bg-emerald-500 text-slate-900 hover:bg-emerald-400"
             >
-              Launch workspace
+              Start visa onboarding
             </Button>
-            <Button 
-  variant="ghost"
-  className="px-6 border border-emerald-500 text-emerald-300 hover:bg-emerald-950/40"
-  onClick={() => router.push("/about")}
->
-  Learn More
-</Button>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => router.push("/showcase")}
+            >
+              View demo portfolio
+            </Button>
           </div>
 
-          <ul className="space-y-2 text-sm text-slate-300">
-            <li>• Central evidence locker for deals, contracts and market tests</li>
-            <li>• Analytics for ads, influencers, marketplace and chat feedback</li>
-            <li>• Clear story for pitch decks and Innovator Founder Visa dossiers</li>
-          </ul>
+          <dl className="mt-8 grid gap-4 text-xs text-slate-300 sm:grid-cols-3 sm:text-sm">
+            <div>
+              <dt className="font-semibold text-emerald-300">
+                Evidence categories
+              </dt>
+              <dd>Market validation, IP, governance, impact, traction.</dd>
+            </div>
+            <div>
+              <dt className="font-semibold text-emerald-300">
+                Built for fashion
+              </dt>
+              <dd>Trend analytics, lookbooks, fittings, retail pilots.</dd>
+            </div>
+            <div>
+              <dt className="font-semibold text-emerald-300">
+                Stakeholder ready
+              </dt>
+              <dd>Exportable packs for investors and immigration lawyers.</dd>
+            </div>
+          </dl>
         </div>
 
-        {/* Video / visual card */}
-        <Card className="bg-slate-900/60 border-slate-700 shadow-xl">
+        {/* HERO VIDEO CARD */}
+        <Card className="border-emerald-500/30 bg-slate-900/60 shadow-xl shadow-emerald-500/10">
           <CardHeader>
-            <CardTitle className="text-base md:text-lg">
-              90-second overview – Kinseso Vision for Innovator Founders
+            <CardTitle className="text-sm text-slate-100">
+              90-second overview
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            {/* Replace /demo-visa.mp4 with your real file in /public */}
-            <div className="aspect-video rounded-xl overflow-hidden bg-black border border-slate-800 mb-3">
+          <CardContent className="space-y-3">
+            <div className="relative overflow-hidden rounded-xl border border-slate-800 bg-slate-900">
+              {/* Replace src with your real promo video path or HLS player */}
               <video
-                className="w-full h-full object-cover"
+                src="/videos/kinsesovision-demo.mp4"
                 controls
-                poster="/visa-poster.png" // optional thumbnail in /public
+                className="aspect-video w-full rounded-xl"
+                poster="/images/hero-poster.jpg"
               >
-                <source src="/demo-visa.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </div>
             <p className="text-xs text-slate-400">
-              This video should show how Kinseso Vision tracks innovation experiments,
-              traction and revenue streams in one place for your visa and investor
-              applications.
+              This demo shows how a founder moves from idea to evidence pack,
+              including analytics, cloud storage, and video case studies.
             </p>
           </CardContent>
         </Card>
       </section>
 
-      {/* Three pillars section */}
-      <section className="px-6 pb-16 md:px-12 lg:px-24 grid gap-6 md:grid-cols-3">
-        <Card className="bg-slate-900/70 border-slate-800">
+      {/* THREE PILLARS */}
+      <section className="grid gap-6 md:grid-cols-3">
+        <Card className="bg-slate-900/60 border-slate-800">
           <CardHeader>
-            <CardTitle className="text-sm">1. Evidence of innovation</CardTitle>
+            <CardTitle className="text-sm text-emerald-300">
+              Cloud evidence workspace
+            </CardTitle>
           </CardHeader>
-          <CardContent className="text-xs text-slate-300 space-y-2">
+          <CardContent className="space-y-2 text-sm text-slate-300">
             <p>
-              Capture product experiments, fashion tech prototypes, AI tools and
-              partnerships. Each entry can be backed with files, images and notes,
-              ready to export into visa dossiers.
+              Organise all the documents that caseworkers expect: pitch decks,
+              financials, IP registrations, contracts and employment records.
             </p>
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-900/70 border-slate-800">
+        <Card className="bg-slate-900/60 border-slate-800">
           <CardHeader>
-            <CardTitle className="text-sm">2. Evidence of traction</CardTitle>
+            <CardTitle className="text-sm text-sky-300">
+              Data & innovation story
+            </CardTitle>
           </CardHeader>
-          <CardContent className="text-xs text-slate-300 space-y-2">
+          <CardContent className="space-y-2 text-sm text-slate-300">
             <p>
-              Pull in data from ads, influencers, marketplace tests and chat
-              interactions so you can show early demand, revenue tests and
-              commercial response by segment.
+              Link your analytics, experiments and market pilots directly to
+              each visa criteria to show innovation and scalability.
             </p>
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-900/70 border-slate-800">
+        <Card className="bg-slate-900/60 border-slate-800">
           <CardHeader>
-            <CardTitle className="text-sm">3. Evidence of scalability</CardTitle>
+            <CardTitle className="text-sm text-fuchsia-300">
+              Investor-grade portfolio
+            </CardTitle>
           </CardHeader>
-          <CardContent className="text-xs text-slate-300 space-y-2">
+          <CardContent className="space-y-2 text-sm text-slate-300">
             <p>
-              Use your cloud locker to store contracts, LOIs, investor interest,
-              tech architecture and operating model so assessors can see how the
-              business can grow in the UK.
+              Curate a video-first portfolio that explains the product, runway,
+              partnerships and impact across the fashion ecosystem.
             </p>
           </CardContent>
         </Card>
       </section>
-    </main>
+    </div>
   );
 }

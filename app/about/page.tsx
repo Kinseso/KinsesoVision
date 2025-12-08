@@ -1,86 +1,66 @@
+// /app/about/page.tsx
 "use client";
-
-import { Card, CardHeader, CardTitle, CardContent } from "../../src/components/ui/card";
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-50 px-6 py-16 md:px-12 lg:px-24">
-      <section className="max-w-4xl mx-auto space-y-8">
-        <header>
-          <p className="text-xs uppercase tracking-[0.25em] text-emerald-400 mb-3">
-            About Kinseso Vision v12.0
-          </p>
-          <h1 className="text-3xl md:text-4xl font-semibold mb-3">
-            A single workspace for fashion-tech founders and Innovator Founder Visa
-            evidence.
-          </h1>
-          <p className="text-sm md:text-base text-slate-300 max-w-2xl">
-            Kinseso Vision is built to help founders move from idea to proof-of-concept
-            and into the UK through the Innovator Founder Visa route. The app
-            combines creative experimentation, market validation and investor-grade
-            documentation in one place.
-          </p>
-        </header>
+    <main className="max-w-5xl mx-auto px-4 py-12 space-y-8">
+      <section className="space-y-4">
+        <h1 className="text-3xl md:text-4xl font-bold">
+          KinsesoVision – The Intelligent Super-App for Life, Work, Safety & Innovation
+        </h1>
+        <p className="text-lg text-slate-700">
+          KinsesoVision is a groundbreaking super-platform designed to transform how people
+          live, work, connect, stay safe, and access essential services.
+        </p>
+        <p className="text-slate-700">
+          It is built on one powerful vision:{" "}
+          <span className="font-semibold">
+            a single app that brings your entire life together — powered by AI,
+            real-time data intelligence, instant cloud safety, and seamless access to all
+            the services you need.
+          </span>
+        </p>
+      </section>
 
-        <Card className="bg-slate-900/70 border-slate-800">
-          <CardHeader>
-            <CardTitle className="text-base">What the app does</CardTitle>
-          </CardHeader>
-          <CardContent className="text-sm text-slate-300 space-y-3">
-            <p>
-              • <strong>Trend lab:</strong> capture and track fashion and culture trends,
-              test concepts and cluster insights from the analytics module.
-            </p>
-            <p>
-              • <strong>Campaigns and creators:</strong> log collaborations with creators,
-              influencers and early brand partners. Track performance and learnings.
-            </p>
-            <p>
-              • <strong>Marketplace pilots:</strong> document capsule drops, pre-orders,
-              resale or rental pilots and connect them to real metrics such as
-              revenue, conversion and retention.
-            </p>
-            <p>
-              • <strong>Evidence locker:</strong> store key documents – pitch decks,
-              MOUs, supplier contracts, investor interest, technology documentation –
-              inside the cloud storage area.
-            </p>
-          </CardContent>
-        </Card>
+      <section className="grid md:grid-cols-2 gap-8">
+        <div className="space-y-3">
+          <h2 className="text-xl font-semibold">What users can do with KinsesoVision</h2>
+          <ul className="list-disc list-inside text-slate-700 space-y-1">
+            <li>Secure homes, vehicles, and workplaces with real-time automatic evidence backup.</li>
+            <li>Access care, cleaning, logistics, relationship, and lifestyle services from one hub.</li>
+            <li>Connect with creators, professionals, and communities.</li>
+            <li>Explore trends, markets, and opportunities across fashion and tech.</li>
+            <li>Shop, learn, earn, publish, analyse, and grow — all inside one intelligent app.</li>
+            <li>Preserve CCTV and camera footage even when the device is stolen or destroyed.</li>
+          </ul>
+        </div>
 
-        <Card className="bg-slate-900/70 border-slate-800">
-          <CardHeader>
-            <CardTitle className="text-base">
-              Why it matters for Innovator Founder Visa
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="text-sm text-slate-300 space-y-3">
-            <p>
-              Assessors and endorsing bodies want clear evidence that your concept is{" "}
-              innovative, viable and scalable. Kinseso Vision helps you:
-            </p>
-            <ul className="list-disc ml-5 space-y-1">
-              <li>Show your product roadmap and innovation experiments clearly.</li>
-              <li>Demonstrate proof-of-market with structured analytics.</li>
-              <li>Bundle all supporting documents into a single digital dossier.</li>
-              <li>Export key views and screenshots into visa templates and pitch decks.</li>
-            </ul>
-          </CardContent>
-        </Card>
+        <div className="space-y-3">
+          <h2 className="text-xl font-semibold">Built for today&apos;s world</h2>
+          <ul className="list-disc list-inside text-slate-700 space-y-1">
+            <li>Fast, connected, mobile-first experience.</li>
+            <li>Data-driven decision support and analytics.</li>
+            <li>Safety-conscious design with secure cloud evidence.</li>
+            <li>Flexible enough for individuals, families, and businesses.</li>
+          </ul>
+        </div>
+      </section>
 
-        <Card className="bg-slate-900/70 border-slate-800">
-          <CardHeader>
-            <CardTitle className="text-base">Roadmap for v12.x</CardTitle>
-          </CardHeader>
-          <CardContent className="text-sm text-slate-300 space-y-2">
-            <p>Planned features after this release include:</p>
-            <ul className="list-disc ml-5 space-y-1">
-              <li>Deeper Supabase storage integration for structured evidence folders.</li>
-              <li>One-click export of evidence packs for endorsing bodies.</li>
-              <li>Simple dashboards for monthly traction and funding updates.</li>
-            </ul>
-          </CardContent>
-        </Card>
+      <section className="space-y-3">
+        <h2 className="text-xl font-semibold">A UK-built innovation</h2>
+        <p className="text-slate-700">
+          From booking a live-in carer or cleaner, to ordering logistics pickup, to analysing
+          fashion market data, to accessing relationship or wellness support, to preserving
+          camera footage after an incident — KinsesoVision becomes a private, secure,
+          intelligent ecosystem for modern life.
+        </p>
+        <p className="text-slate-700">
+          A super-app designed for global citizens. Built in the UK. Powered by AI.
+          Engineered for innovation.
+        </p>
+        <p className="font-semibold text-slate-800">
+          This is KinsesoVision — life, inside one app.
+        </p>
       </section>
     </main>
   );

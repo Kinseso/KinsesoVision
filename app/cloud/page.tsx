@@ -1,116 +1,230 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardHeader, CardTitle, CardContent } from "../../src/components/ui/card";
-import { Button } from "../../src/components/ui/button";
-import { Input } from "../../src/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 
-type LocalFile = {
-  id: string;
+type EvidenceType =
+  | "Business Plan"
+  | "Financials"
+  | "IP"
+  | "Contracts"
+  | "Impact"
+  | "Team";
+
+type DocumentMeta = {
+  id: number;
   name: string;
-  size: number;
+  category: EvidenceType;
+  updated: string;
+  size: string;
 };
 
-export default function CloudLockerPage() {
-  const [files, setFiles] = useState<LocalFile[]>([]);
-  const [pending, setPending] = useState(false);
+const seedDocs: DocumentMeta[] = [
+  {
+    id: 1,
+    name: "KinsesoVision Pitch Deck v3.pdf",
+    category: "Business Plan",
+    updated: "2025-11-30",
+    size: "4.2 MB",
+  },
+  {
+    id: 2,
+    name: "Fashion Pilot MoU – London Retailer.docx",
+    category: "Contracts",
+    updated: "2025-11-12",
+    size: "380 KB",
+  },
+  {
+    id: 3,
+    name: "Trademark filing – KINSESOVISION.png",
+    category: "IP",
+    updated: "2025-10-05",
+    size: "640 KB",
+  },
+  {
+    id: 4,
+    name: "Revenue & Runway Forecast.xlsx",
+    category: "Financials",
+    updated: "2025-09-20",
+    size: "820 KB",
+  },
+  {
+    id: 5,
+    name: "Carbon Impact Model.pdf",
+    category: "Impact",
+    updated: "2025-09-10",
+    size: "1.8 MB",
+  },
+];
 
-  const handleLocalAdd = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
+export default function CloudPage() {
+  const [query, setQuery] = useState("");
+  const [docs] = useState<DocumentMeta[]>(seedDocs);
+  const [filter, setFilter] = useState<EvidenceType | "All">("All");
 
-    // For now we only simulate upload and keep in memory
-    const newItem: LocalFile = {
-      id: `${Date.now()}-${file.name}`,
-      name: file.name,
-      size: file.size,
-    };
-    setFiles((prev) => [newItem, ...prev]);
-    event.target.value = "";
-  };
-
-  const handleSimulatedUpload = async () => {
-    setPending(true);
-    // Here is where Supabase Storage integration will go in the next step.
-    await new Promise((res) => setTimeout(res, 700));
-    setPending(false);
-    alert(
-      "This is the v12 UI placeholder. In the next iteration we will connect this to Supabase Storage so files are persisted in the cloud."
-    );
-  };
+  const filtered = docs.filter((doc) => {
+    const q = query.toLowerCase();
+    const matchesText =
+      doc.name.toLowerCase().includes(q) ||
+      doc.category.toLowerCase().includes(q);
+    const matchesFilter = filter === "All" || doc.category === filter;
+    return matchesText && matchesFilter;
+  });
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-50 px-6 py-16 md:px-12 lg:px-24">
-      <section className="max-w-5xl mx-auto space-y-10">
-        <header>
-          <p className="text-xs uppercase tracking-[0.25em] text-emerald-400 mb-3">
-            Cloud evidence locker
-          </p>
-          <h1 className="text-2xl md:text-3xl font-semibold mb-2">
-            Store visa and investor evidence in one secure workspace.
-          </h1>
-          <p className="text-sm md:text-base text-slate-300 max-w-2xl">
-            Use the cloud locker to organise documents that prove innovation,
-            traction and scalability: product specs, contracts, investor emails,
-            tests, research and screenshots from the rest of Kinseso Vision.
-          </p>
-        </header>
+    <div className="space-y-8">
+      <section className="space-y-3">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-emerald-300">
+          Cloud storage
+        </p>
+        <h1 className="text-3xl font-semibold tracking-tight text-slate-50 sm:text-4xl">
+          Visa evidence workspace
+        </h1>
+        <p className="max-w-2xl text-sm text-slate-300 sm:text-base">
+          Use this view as the control centre for all documents that support an
+          Innovator Founder application: from pitch decks and forecasts to IP
+          filings and letters of support.
+        </p>
+      </section>
 
-        <Card className="bg-slate-900/70 border-slate-800">
-          <CardHeader>
-            <CardTitle className="text-base">Upload evidence (UI demo)</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex flex-col md:flex-row gap-3 md:items-center">
+      <section className="grid gap-6 lg:grid-cols-[2fr,1fr]">
+        <Card className="border-slate-800 bg-slate-900/70">
+          <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <CardTitle className="text-sm text-slate-100">
+                Documents
+              </CardTitle>
+              <p className="text-xs text-slate-400">
+                Store files by evidence category and quickly export a bundle for
+                lawyers or endorsing bodies.
+              </p>
+            </div>
+            <div className="flex gap-2">
               <Input
-                type="file"
-                className="bg-slate-950 border-slate-700 text-sm"
-                onChange={handleLocalAdd}
+                placeholder="Search name or category…"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="h-9 w-40 bg-slate-950/60 text-xs sm:w-56"
               />
               <Button
-                className="w-full md:w-auto"
-                disabled={pending || files.length === 0}
-                onClick={handleSimulatedUpload}
+                size="sm"
+                onClick={() =>
+                  alert(
+                    "This is a UI demo. Wire this button to your real upload flow."
+                  )
+                }
               >
-                {pending ? "Simulating upload..." : "Save to cloud (demo)"}
+                Upload
               </Button>
             </div>
-            <p className="text-xs text-slate-400">
-              In the live version this button will push your files into Supabase Storage
-              under your user ID so they are available on the web app and for export
-              into visa packs.
-            </p>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex flex-wrap gap-2 text-xs">
+              <Badge
+                variant={filter === "All" ? "default" : "outline"}
+                className="cursor-pointer"
+                onClick={() => setFilter("All")}
+              >
+                All
+              </Badge>
+              {(["Business Plan", "Financials", "IP", "Contracts", "Impact", "Team"] as EvidenceType[]).map(
+                (cat) => (
+                  <Badge
+                    key={cat}
+                    variant={filter === cat ? "default" : "outline"}
+                    className="cursor-pointer"
+                    onClick={() => setFilter(cat)}
+                  >
+                    {cat}
+                  </Badge>
+                )
+              )}
+            </div>
+
+            <div className="overflow-hidden rounded-lg border border-slate-800 bg-slate-950/40">
+              <table className="w-full text-left text-xs text-slate-200 sm:text-sm">
+                <thead className="bg-slate-900/70 text-slate-400">
+                  <tr>
+                    <th className="px-3 py-2">Name</th>
+                    <th className="px-3 py-2 hidden sm:table-cell">
+                      Category
+                    </th>
+                    <th className="px-3 py-2 hidden sm:table-cell">
+                      Updated
+                    </th>
+                    <th className="px-3 py-2 text-right">Size</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filtered.map((doc) => (
+                    <tr
+                      key={doc.id}
+                      className="border-t border-slate-800/80 hover:bg-slate-900/60"
+                    >
+                      <td className="px-3 py-2">
+                        <span className="block truncate">{doc.name}</span>
+                        <span className="mt-1 block text-[10px] text-slate-500 sm:hidden">
+                          {doc.category} · {doc.updated}
+                        </span>
+                      </td>
+                      <td className="px-3 py-2 text-xs text-slate-300 hidden sm:table-cell">
+                        {doc.category}
+                      </td>
+                      <td className="px-3 py-2 text-xs text-slate-300 hidden sm:table-cell">
+                        {doc.updated}
+                      </td>
+                      <td className="px-3 py-2 text-right text-xs text-slate-300">
+                        {doc.size}
+                      </td>
+                    </tr>
+                  ))}
+
+                  {filtered.length === 0 && (
+                    <tr>
+                      <td
+                        colSpan={4}
+                        className="px-3 py-6 text-center text-xs text-slate-500"
+                      >
+                        No documents match your filters yet.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-900/70 border-slate-800">
+        <Card className="border-emerald-500/40 bg-slate-900/80">
           <CardHeader>
-            <CardTitle className="text-base">Recent files (session only)</CardTitle>
+            <CardTitle className="text-sm text-emerald-300">
+              Evidence checklist
+            </CardTitle>
           </CardHeader>
-          <CardContent>
-            {files.length === 0 ? (
-              <p className="text-sm text-slate-400">
-                No files added in this session yet. Use the picker above to add some
-                sample evidence files – pitch decks, pilots, contracts, etc.
-              </p>
-            ) : (
-              <ul className="divide-y divide-slate-800 text-sm">
-                {files.map((f) => (
-                  <li
-                    key={f.id}
-                    className="flex justify-between items-center py-2 text-slate-200"
-                  >
-                    <span className="truncate max-w-xs md:max-w-md">{f.name}</span>
-                    <span className="text-xs text-slate-500">
-                      {(f.size / 1024).toFixed(1)} KB
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            )}
+          <CardContent className="space-y-3 text-xs text-slate-300">
+            <p>
+              Use these categories to mirror how endorsing bodies and lawyers
+              review applications.
+            </p>
+            <ul className="list-disc space-y-2 pl-4">
+              <li>Innovation: prototypes, pilot reports, design IP.</li>
+              <li>Viability: forecasts, cap table, governance documents.</li>
+              <li>Scalability: partnerships, recruitment, international plans.</li>
+              <li>
+                Impact: sustainability metrics, social impact statements, ESG.
+              </li>
+            </ul>
           </CardContent>
         </Card>
       </section>
-    </main>
+    </div>
   );
 }
