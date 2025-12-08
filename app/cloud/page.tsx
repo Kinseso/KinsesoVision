@@ -68,7 +68,7 @@ const seedDocs: DocumentMeta[] = [
 export default function CloudPage() {
   const [query, setQuery] = useState("");
   const [docs] = useState<DocumentMeta[]>(seedDocs);
-  const [filter, setFilter] = useState<EvidenceType | "All">("All");
+  const [filter, setFilter] = useState<string>("All");
 
   const filtered = docs.filter((doc) => {
     const q = query.toLowerCase();
