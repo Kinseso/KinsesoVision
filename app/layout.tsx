@@ -28,32 +28,16 @@ export default function RootLayout({
               </span>
             </Link>
 
-            <nav className="flex flex-wrap items-center gap-4 text-sm text-slate-200">
-              <Link href="/" className="hover:text-emerald-300">
-                Home
-              </Link>
-              <Link href="/about" className="hover:text-emerald-300">
-                About the App
-              </Link>
-              <Link href="/analytics" className="hover:text-emerald-300">
-                Analytics
-              </Link>
-              <Link href="/cloud" className="hover:text-emerald-300">
-                Cloud Storage
-              </Link>
-              <Link href="/showcase" className="hover:text-emerald-300">
-                Video Showcase
-              </Link>
-              <Link href="/onboarding" className="hover:text-emerald-300">
-                Visa Onboarding
-              </Link>
-              <Link href="/marketplace" className="hover:text-emerald-300">
-                Marketplace
-              </Link>
-              <Link href="/insurance" className="hover:text-emerald-300">
-                Insurance
-              </Link>
-            </nav>
+          <nav className="text-sm flex gap-4 flex-wrap">
+  <Link href="/">Home</Link>
+  <Link href="/about">About</Link>
+  <Link href="/evidence">Evidence</Link>
+  <Link href="/cloud-vault">Cloud Vault</Link>
+  <Link href="/hub">Life Hub</Link>
+  <Link href="/analytics">Analytics</Link>
+  <Link href="/blog">Blog</Link>
+  <Link href="/login">Login</Link>
+</nav>
           </div>
         </header>
 

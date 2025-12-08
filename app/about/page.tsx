@@ -1,67 +1,111 @@
-// /app/about/page.tsx
-"use client";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About KinsesoVision",
+};
 
 export default function AboutPage() {
   return (
-    <main className="max-w-5xl mx-auto px-4 py-12 space-y-8">
-      <section className="space-y-4">
-        <h1 className="text-3xl md:text-4xl font-bold">
-          KinsesoVision – The Intelligent Super-App for Life, Work, Safety & Innovation
-        </h1>
-        <p className="text-lg text-slate-700">
-          KinsesoVision is a groundbreaking super-platform designed to transform how people
-          live, work, connect, stay safe, and access essential services.
-        </p>
-        <p className="text-slate-700">
-          It is built on one powerful vision:{" "}
-          <span className="font-semibold">
-            a single app that brings your entire life together — powered by AI,
-            real-time data intelligence, instant cloud safety, and seamless access to all
-            the services you need.
-          </span>
-        </p>
-      </section>
+    <main className="max-w-4xl mx-auto px-4 py-16 prose prose-invert prose-sm sm:prose-base">
+      <h1>KinsesoVision – The Intelligent Super-App for Life, Work, Safety &amp; Innovation</h1>
 
-      <section className="grid md:grid-cols-2 gap-8">
-        <div className="space-y-3">
-          <h2 className="text-xl font-semibold">What users can do with KinsesoVision</h2>
-          <ul className="list-disc list-inside text-slate-700 space-y-1">
-            <li>Secure homes, vehicles, and workplaces with real-time automatic evidence backup.</li>
-            <li>Access care, cleaning, logistics, relationship, and lifestyle services from one hub.</li>
-            <li>Connect with creators, professionals, and communities.</li>
-            <li>Explore trends, markets, and opportunities across fashion and tech.</li>
-            <li>Shop, learn, earn, publish, analyse, and grow — all inside one intelligent app.</li>
-            <li>Preserve CCTV and camera footage even when the device is stolen or destroyed.</li>
-          </ul>
-        </div>
+      <p>
+        Welcome to <strong>KinsesoVision</strong>, a groundbreaking super-platform
+        designed to transform how people live, work, connect, stay safe, and access
+        essential services.
+      </p>
 
-        <div className="space-y-3">
-          <h2 className="text-xl font-semibold">Built for today&apos;s world</h2>
-          <ul className="list-disc list-inside text-slate-700 space-y-1">
-            <li>Fast, connected, mobile-first experience.</li>
-            <li>Data-driven decision support and analytics.</li>
-            <li>Safety-conscious design with secure cloud evidence.</li>
-            <li>Flexible enough for individuals, families, and businesses.</li>
-          </ul>
-        </div>
-      </section>
+      <p>KinsesoVision is built on one powerful vision:</p>
 
-      <section className="space-y-3">
-        <h2 className="text-xl font-semibold">A UK-built innovation</h2>
-        <p className="text-slate-700">
-          From booking a live-in carer or cleaner, to ordering logistics pickup, to analysing
-          fashion market data, to accessing relationship or wellness support, to preserving
-          camera footage after an incident — KinsesoVision becomes a private, secure,
-          intelligent ecosystem for modern life.
-        </p>
-        <p className="text-slate-700">
-          A super-app designed for global citizens. Built in the UK. Powered by AI.
-          Engineered for innovation.
-        </p>
-        <p className="font-semibold text-slate-800">
-          This is KinsesoVision — life, inside one app.
-        </p>
-      </section>
+      <p>
+        <em>
+          A single app that brings your entire life together — powered by AI,
+          real-time data intelligence, instant cloud safety, and seamless access to
+          all the services you need.
+        </em>
+      </p>
+
+      <p>For the first time, users can:</p>
+      <ul>
+        <li>Secure their homes, vehicles, and workplaces with real-time automatic evidence backup</li>
+        <li>Access care, cleaning, logistics, relationship, and lifestyle services from one hub</li>
+        <li>Connect with creators, professionals, and communities</li>
+        <li>Explore trends, markets, and opportunities</li>
+        <li>Shop, learn, earn, publish, analyse, and grow — all in one intelligent app</li>
+      </ul>
+
+      <p>KinsesoVision is built for the world we live in today:</p>
+      <ul>
+        <li>Fast</li>
+        <li>Connected</li>
+        <li>Digital</li>
+        <li>Mobile</li>
+        <li>Data-driven</li>
+        <li>Safety-conscious</li>
+      </ul>
+
+      <p>
+        From booking a live-in carer, to requesting a cleaner, to ordering logistics
+        pickup, to analysing fashion market data, to accessing relationship or
+        wellness support, to preserving CCTV footage even when a camera is stolen –
+        KinsesoVision becomes a private, secure, intelligent ecosystem.
+      </p>
+
+      <p>
+        A super app designed for global citizens. Built in the UK. Powered by AI.
+        Engineered for innovation.
+      </p>
+
+      <p><strong>This is KinsesoVision — Life, inside one app.</strong></p>
+
+      <h2>Kinseso Secure Evidence Engine (KSEE)</h2>
+
+      <p>This is the core innovation at the heart of KinsesoVision.</p>
+
+      <p>
+        The <strong>Kinseso Secure Evidence Engine (KSEE)</strong> provides
+        real-time automatic cloud recording for:
+      </p>
+      <ul>
+        <li>Dashcams</li>
+        <li>CCTV</li>
+        <li>Home cameras</li>
+        <li>Doorbells</li>
+        <li>Phones</li>
+        <li>Bodycams</li>
+        <li>Vehicle cameras</li>
+      </ul>
+
+      <p>
+        Everything streams to the cloud instantly. Even if a thief steals the device
+        or a card is damaged, the evidence is already safe.
+      </p>
+
+      <h3>AI Event Detection</h3>
+      <ul>
+        <li>Break-ins and vandalism</li>
+        <li>Car theft and road incidents</li>
+        <li>Assault and medical emergencies</li>
+        <li>Abuse in care homes and workplaces</li>
+        <li>Domestic disturbance and safety concerns</li>
+      </ul>
+
+      <h3>AI Evidence Pack Generation</h3>
+      <p>KSEE builds structured evidence packs that can include:</p>
+      <ul>
+        <li>Video and snapshots</li>
+        <li>Timeline of events</li>
+        <li>Location and context</li>
+        <li>Detected event types</li>
+        <li>Geo-time logs</li>
+        <li>Export-ready summaries for insurers or relevant authorities</li>
+      </ul>
+
+      <p>
+        Together, KinsesoVision and KSEE form a scalable, commercially focused
+        platform that combines safety, services, analytics and community in a single
+        intelligent ecosystem.
+      </p>
     </main>
   );
 }
