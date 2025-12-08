@@ -1,258 +1,228 @@
 "use client";
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import React, { useState } from "react";
 import {
   Card,
   CardHeader,
   CardTitle,
+  CardDescription,
   CardContent,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+} from "../../src/components/ui/card";
+import { Badge } from "../../src/components/ui/badge";
+import { Button } from "../../src/components/ui/button";
 
-type EvidenceType =
-  | "Business Plan"
-  | "Financials"
-  | "IP"
-  | "Contracts"
-  | "Impact"
-  | "Team";
+type EvidenceSource =
+  | "All"
+  | "Dashcam"
+  | "CCTV"
+  | "Bodycam"
+  | "Doorbell"
+  | "CarPlayRadio"
+  | "Other";
 
-type DocumentMeta = {
+type EvidenceItem = {
   id: number;
-  name: string;
-  category: EvidenceType;
-  updated: string;
-  size: string;
+  source: EvidenceSource;
+  title: string;
+  location: string;
+  status: "Streaming" | "Stored" | "Flagged";
+  createdAt: string;
 };
 
-const seedDocs: DocumentMeta[] = [
+const evidenceFilters: EvidenceSource[] = [
+  "All",
+  "Dashcam",
+  "CCTV",
+  "Bodycam",
+  "Doorbell",
+  "CarPlayRadio",
+  "Other",
+];
+
+const demoEvidence: EvidenceItem[] = [
   {
     id: 1,
-    name: "KinsesoVision Pitch Deck v3.pdf",
-    category: "Business Plan",
-    updated: "2025-11-30",
-    size: "4.2 MB",
+    source: "Dashcam",
+    title: "Vehicle incident – high street",
+    location: "London, UK",
+    status: "Streaming",
+    createdAt: "Just now",
   },
   {
     id: 2,
-    name: "Fashion Pilot MoU – London Retailer.docx",
-    category: "Contracts",
-    updated: "2025-11-12",
-    size: "380 KB",
+    source: "CCTV",
+    title: "Store front security feed",
+    location: "Manchester, UK",
+    status: "Stored",
+    createdAt: "5 min ago",
   },
   {
     id: 3,
-    name: "Trademark filing – KINSESOVISION.png",
-    category: "IP",
-    updated: "2025-10-05",
-    size: "640 KB",
+    source: "Bodycam",
+    title: "On-site inspection footage",
+    location: "Birmingham, UK",
+    status: "Flagged",
+    createdAt: "12 min ago",
   },
   {
     id: 4,
-    name: "Revenue & Runway Forecast.xlsx",
-    category: "Financials",
-    updated: "2025-09-20",
-    size: "820 KB",
-  },
-  {
-    id: 5,
-    name: "Carbon Impact Model.pdf",
-    category: "Impact",
-    updated: "2025-09-10",
-    size: "1.8 MB",
+    source: "CarPlayRadio",
+    title: "In-car audio + dashcam sync",
+    location: "Leeds, UK",
+    status: "Streaming",
+    createdAt: "30 sec ago",
   },
 ];
 
 export default function CloudPage() {
-  const [query, setQuery] = useState("");
-  const [docs] = useState<DocumentMeta[]>(seedDocs);
-  const [filter, setFilter] = useState<string>("All");
+  const [filter, setFilter] = useState<EvidenceSource>("All");
 
-  const filtered = docs.filter((doc) => {
-    const q = query.toLowerCase();
-    const matchesText =
-      doc.name.toLowerCase().includes(q) ||
-      doc.category.toLowerCase().includes(q);
-    const matchesFilter = filter === "All" || doc.category === filter;
-    return matchesText && matchesFilter;
-  });
+  const filteredEvidence =
+    filter === "All"
+      ? demoEvidence
+      : demoEvidence.filter((item) => item.source === filter);
 
   return (
-    <div className="space-y-8">
-      <section className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-emerald-300">
-          Cloud storage
-        </p>
-        <h1 className="text-3xl font-semibold tracking-tight text-slate-50 sm:text-4xl">
-          Visa evidence workspace
-        </h1>
-        <p className="max-w-2xl text-sm text-slate-300 sm:text-base">
-          Use this view as the control centre for all documents that support an
-          Innovator Founder application: from pitch decks and forecasts to IP
-          filings and letters of support.
-        </p>
-      </section>
-
-      <section className="grid gap-6 lg:grid-cols-[2fr,1fr]">
-        <Card className="border-slate-800 bg-slate-900/70">
-          <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <CardTitle className="text-sm text-slate-100">
-                Documents
-              </CardTitle>
-              <p className="text-xs text-slate-400">
-                Store files by evidence category and quickly export a bundle for
-                lawyers or endorsing bodies.
-              </p>
-            </div>
-            <div className="flex gap-2">
-              <Input
-                placeholder="Search name or category…"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                className="h-9 w-40 bg-slate-950/60 text-xs sm:w-56"
-              />
-              <Button
-                size="sm"
-                onClick={() =>
-                  alert(
-                    "This is a UI demo. Wire this button to your real upload flow."
-                  )
-                }
-              >
-                Upload
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex flex-wrap gap-2 text-xs">
-  <Badge
-    variant={filter === "All" ? "green" : "secondary"}
-    className="cursor-pointer"
-    onClick={() => setFilter("All")}
-  >
-    All
-  </Badge>
-
-  <Badge
-    variant={filter === "Dashcams" ? "green" : "secondary"}
-    className="cursor-pointer"
-    onClick={() => setFilter("Dashcams")}
-  >
-    Dashcams
-  </Badge>
-
-  <Badge
-    variant={filter === "CCTV" ? "green" : "secondary"}
-    className="cursor-pointer"
-    onClick={() => setFilter("CCTV")}
-  >
-    CCTV
-  </Badge>
-
-  <Badge
-    variant={filter === "Home" ? "green" : "secondary"}
-    className="cursor-pointer"
-    onClick={() => setFilter("Home")}
-  >
-    Home cameras
-  </Badge>
-
-  <Badge
-    variant={filter === "Bodycam" ? "green" : "secondary"}
-    className="cursor-pointer"
-    onClick={() => setFilter("Bodycam")}
-  >
-    Bodycams
-  </Badge>
-
-  <Badge
-    variant={filter === "Vehicle" ? "green" : "secondary"}
-    className="cursor-pointer"
-    onClick={() => setFilter("Vehicle")}
-  >
-    Vehicle cameras
-  </Badge>
-</div>
-
-            <div className="overflow-hidden rounded-lg border border-slate-800 bg-slate-950/40">
-              <table className="w-full text-left text-xs text-slate-200 sm:text-sm">
-                <thead className="bg-slate-900/70 text-slate-400">
-                  <tr>
-                    <th className="px-3 py-2">Name</th>
-                    <th className="px-3 py-2 hidden sm:table-cell">
-                      Category
-                    </th>
-                    <th className="px-3 py-2 hidden sm:table-cell">
-                      Updated
-                    </th>
-                    <th className="px-3 py-2 text-right">Size</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filtered.map((doc) => (
-                    <tr
-                      key={doc.id}
-                      className="border-t border-slate-800/80 hover:bg-slate-900/60"
-                    >
-                      <td className="px-3 py-2">
-                        <span className="block truncate">{doc.name}</span>
-                        <span className="mt-1 block text-[10px] text-slate-500 sm:hidden">
-                          {doc.category} · {doc.updated}
-                        </span>
-                      </td>
-                      <td className="px-3 py-2 text-xs text-slate-300 hidden sm:table-cell">
-                        {doc.category}
-                      </td>
-                      <td className="px-3 py-2 text-xs text-slate-300 hidden sm:table-cell">
-                        {doc.updated}
-                      </td>
-                      <td className="px-3 py-2 text-right text-xs text-slate-300">
-                        {doc.size}
-                      </td>
-                    </tr>
-                  ))}
-
-                  {filtered.length === 0 && (
-                    <tr>
-                      <td
-                        colSpan={4}
-                        className="px-3 py-6 text-center text-xs text-slate-500"
-                      >
-                        No documents match your filters yet.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-emerald-500/40 bg-slate-900/80">
-          <CardHeader>
-            <CardTitle className="text-sm text-emerald-300">
-              Evidence checklist
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 text-xs text-slate-300">
-            <p>
-              Use these categories to mirror how endorsing bodies and lawyers
-              review applications.
+    <main className="max-w-6xl mx-auto px-4 py-10 space-y-8">
+      {/* Top summary card */}
+      <Card className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-sky-500 text-white">
+        <CardHeader>
+          <CardTitle className="text-2xl md:text-3xl">
+            Kinseso Secure Evidence Engine (KSEE)
+          </CardTitle>
+          <CardDescription className="text-emerald-50">
+            Real-time cloud recording from dashcams, CCTV, bodycams, CarPlay
+            radios and every connected camera – so evidence is safe even when
+            devices are lost, stolen or destroyed.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-4 md:grid-cols-3 text-sm md:text-base">
+          <div>
+            <p className="font-semibold">Live streams</p>
+            <p className="text-emerald-50">
+              Vehicles, homes, workplaces and body-worn devices streaming
+              directly into the secure cloud vault.
             </p>
-            <ul className="list-disc space-y-2 pl-4">
-              <li>Innovation: prototypes, pilot reports, design IP.</li>
-              <li>Viability: forecasts, cap table, governance documents.</li>
-              <li>Scalability: partnerships, recruitment, international plans.</li>
-              <li>
-                Impact: sustainability metrics, social impact statements, ESG.
-              </li>
-            </ul>
-          </CardContent>
-        </Card>
-      </section>
-    </div>
+          </div>
+          <div>
+            <p className="font-semibold">AI event detection</p>
+            <p className="text-emerald-50">
+              Break-ins, vandalism, road accidents, abuse in care homes and
+              more – automatically highlighted for review.
+            </p>
+          </div>
+          <div>
+            <p className="font-semibold">Evidence packs</p>
+            <p className="text-emerald-50">
+              Timelines, locations and exportable case files ready for police,
+              insurers and compliance teams.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Filters + list */}
+      <Card className="bg-white/80 backdrop-blur">
+        <CardHeader>
+          <CardTitle>Evidence streams</CardTitle>
+          <CardDescription>
+            Filter recordings by source type and review the latest captured
+            events across your cameras.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {/* Filter badges */}
+          <div className="flex flex-wrap gap-2 text-xs md:text-sm">
+            {evidenceFilters.map((type) => {
+              const isActive = filter === type;
+              const label =
+                type === "CarPlayRadio"
+                  ? "CarPlay / Radio"
+                  : type === "All"
+                  ? "All sources"
+                  : type;
+
+              return (
+                <Badge
+                  key={type}
+                  variant={isActive ? "green" : "secondary"}
+                  className="cursor-pointer px-3 py-1"
+                  onClick={() => setFilter(type)}
+                >
+                  {label}
+                </Badge>
+              );
+            })}
+          </div>
+
+          {/* Evidence cards */}
+          <div className="grid gap-4 md:grid-cols-2">
+            {filteredEvidence.map((item) => (
+              <Card
+                key={item.id}
+                className="border border-emerald-100 shadow-sm hover:shadow-md transition"
+              >
+                <CardHeader className="pb-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <CardTitle className="text-base md:text-lg">
+                      {item.title}
+                    </CardTitle>
+                    <Badge
+                      variant={
+                        item.status === "Streaming"
+                          ? "green"
+                          : item.status === "Flagged"
+                          ? "purple"
+                          : "secondary"
+                      }
+                    >
+                      {item.status}
+                    </Badge>
+                  </div>
+                  <CardDescription className="flex justify-between text-xs md:text-sm">
+                    <span>{item.location}</span>
+                    <span>{item.createdAt}</span>
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="flex items-center justify-between pt-0 text-xs md:text-sm">
+                  <div className="space-y-1">
+                    <p className="font-medium">
+                      Source:{" "}
+                      {item.source === "CarPlayRadio"
+                        ? "CarPlay / Radio + dashcam"
+                        : item.source}
+                    </p>
+                    <p className="text-muted-foreground">
+                      Encrypted at rest. Redundant multi-region storage for
+                      critical evidence.
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <Button
+                      variant="secondary"
+                      className="text-xs md:text-sm"
+                    >
+                      View timeline
+                    </Button>
+                    <Button
+                      variant="default"
+                      className="text-xs md:text-sm bg-emerald-600 hover:bg-emerald-700"
+                    >
+                      Generate AI evidence pack
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {filteredEvidence.length === 0 && (
+            <p className="text-sm text-muted-foreground">
+              No evidence streams match this filter yet.
+            </p>
+          )}
+        </CardContent>
+      </Card>
+    </main>
   );
 }

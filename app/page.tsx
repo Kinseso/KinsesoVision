@@ -1,373 +1,231 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "../src/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "../src/components/ui/card";
+import { Badge } from "../src/components/ui/badge";
 
 export default function HomePage() {
-  const router = useRouter();
-
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-50">
-      {/* HERO SECTION */}
-      <section className="relative overflow-hidden">
-        {/* gradient + video overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 via-slate-900 to-indigo-700/30" />
-        <div className="absolute inset-0 opacity-20 pointer-events-none">
-          {/* placeholder for future video background */}
-          <video
-            className="w-full h-full object-cover"
-            autoPlay
-            loop
-            muted
-            playsInline
-          >
-            <source src="/hero-demo.mp4" type="video/mp4" />
-          </video>
-        </div>
-
-        <div className="relative max-w-6xl mx-auto px-4 pt-24 pb-20 flex flex-col lg:flex-row gap-10 lg:gap-16 items-center">
-          <div className="flex-1 space-y-6">
-            <Badge className="bg-emerald-500/10 text-emerald-300 border border-emerald-400/40">
-              Built in the UK • AI & Cloud First
-            </Badge>
-
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight">
-              KinsesoVision —{" "}
-              <span className="text-emerald-300">
-                Life, Work &amp; Safety in One Intelligent App.
-              </span>
+    <main className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-50">
+      <div className="max-w-6xl mx-auto px-4 pb-16">
+        {/* HERO */}
+        <section className="pt-16 md:pt-24 grid gap-10 md:grid-cols-[3fr,2fr] items-center">
+          <div>
+            <p className="text-xs uppercase tracking-[0.3em] text-emerald-400 mb-3">
+              Built in the UK · Powered by AI
+            </p>
+            <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
+              KinsesoVision — Life, Work &amp; Safety in One Intelligent App.
             </h1>
-
-            <p className="text-slate-200/90 max-w-xl text-sm sm:text-base">
+            <p className="text-sm md:text-base text-slate-200 mb-6 max-w-xl">
               AI-powered super-app with real-time cloud evidence, life services,
-              and data intelligence. One secure platform where people can
-              connect, trade, work, stay safe, and manage everyday life.
+              market intelligence and community — designed to bring everything
+              you do into one secure ecosystem.
             </p>
-
-            <div className="flex flex-wrap gap-3">
-              <Button
-                size="lg"
-                onClick={() => router.push("/register")}
-                className="bg-emerald-500 hover:bg-emerald-400 text-slate-950"
-              >
-                Get Started
+            <div className="flex flex-wrap gap-3 mb-6">
+              <Button className="bg-emerald-600 hover:bg-emerald-700">
+                <Link href="/register">Get started</Link>
               </Button>
-
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-emerald-400/60 text-emerald-200 hover:bg-emerald-500/10"
-                onClick={() => router.push("/hub")}
-              >
-                Explore Services
+              <Button variant="secondary">
+                <Link href="/services">Explore services</Link>
               </Button>
-
-              <Button
-                size="lg"
-                variant="ghost"
-                className="text-slate-100 hover:bg-slate-800"
-                onClick={() =>
-                  document
-                    .getElementById("demo-video")
-                    ?.scrollIntoView({ behavior: "smooth" })
-                }
-              >
-                Watch Demo
+              <Button variant="ghost">
+                <Link href="/showcase">Watch demo</Link>
               </Button>
             </div>
-
-            <div className="flex flex-wrap gap-4 text-xs text-slate-300/70">
-              <span>Real-time cloud evidence</span>
-              <span className="h-1 w-1 rounded-full bg-emerald-400" />
-              <span>Life, work &amp; safety services</span>
-              <span className="h-1 w-1 rounded-full bg-emerald-400" />
-              <span>Analytics for fashion & markets</span>
-            </div>
-          </div>
-
-          <div className="flex-1">
-            <Card className="bg-slate-900/70 border-slate-700 shadow-2xl shadow-emerald-500/15">
-              <CardHeader>
-                <CardTitle className="text-emerald-200 text-lg">
-                  Kinseso Secure Evidence Engine (KSEE)
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4 text-sm text-slate-200/90">
-                <p>
-                  Real-time cloud recording for dashcams, CCTV, phones, body
-                  cameras and more. If a device is stolen or destroyed, the
-                  evidence is already safe in your encrypted cloud vault.
+            <div className="flex flex-wrap gap-4 text-xs md:text-sm text-slate-300">
+              <div>
+                <p className="font-semibold text-emerald-300">
+                  Secure evidence &amp; cloud recording
                 </p>
-                <ul className="grid grid-cols-2 gap-2 text-xs">
-                  <li className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                    Dashcams &amp; vehicle cameras
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                    Home &amp; workplace CCTV
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                    Phones &amp; bodycams
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                    AI event detection &amp; alerts
-                  </li>
-                </ul>
-                <Button
-                  className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950"
-                  onClick={() => router.push("/evidence")}
-                >
-                  Open Evidence Console
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 2 – CORE INNOVATION */}
-      <section className="max-w-6xl mx-auto px-4 py-16 space-y-8">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <div>
-            <h2 className="text-2xl font-semibold text-slate-50">
-              The Secure Evidence Engine
-            </h2>
-            <p className="text-sm text-slate-300/80 max-w-xl mt-2">
-              KSEE continuously streams recordings from dashcams, CCTV, home
-              cameras, doorbells, phones, bodycams and vehicles straight into
-              a secure cloud vault, with AI that detects high-risk events.
-            </p>
-          </div>
-          <div className="flex gap-2 flex-wrap text-xs">
-            <Badge className="bg-emerald-600/20 text-emerald-200 border-emerald-500/50">
-              Real-time streaming
-            </Badge>
-            <Badge className="bg-indigo-600/20 text-indigo-200 border-indigo-500/50">
-              AI incident detection
-            </Badge>
-            <Badge className="bg-sky-600/20 text-sky-200 border-sky-500/50">
-              Cloud evidence vault
-            </Badge>
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          <Card className="bg-slate-900/70 border-slate-800">
-            <CardHeader>
-              <CardTitle className="text-sm text-emerald-200">
-                Dashcam & CCTV to Cloud
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="text-xs text-slate-300/80 space-y-2">
-              <p>
-                Vehicles, shops, homes and workplaces stream directly into
-                KinsesoVision. Devices can be replaced – evidence cannot.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-slate-900/70 border-slate-800">
-            <CardHeader>
-              <CardTitle className="text-sm text-emerald-200">
-                AI Event Detection
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="text-xs text-slate-300/80 space-y-2">
-              <p>
-                Detects break-ins, vandalism, road incidents, abuse in care
-                settings, workplace accidents and more – in near real time.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-slate-900/70 border-slate-800">
-            <CardHeader>
-              <CardTitle className="text-sm text-emerald-200">
-                Evidence Pack Generation
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="text-xs text-slate-300/80 space-y-2">
-              <p>
-                Builds structured evidence packs with video, timeline, location,
-                detected events and exportable reports for insurers or
-                authorities.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* SECTION 3 – LIFE HUB */}
-      <section
-        id="hub"
-        className="max-w-6xl mx-auto px-4 py-16 border-t border-slate-800/60"
-      >
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
-          <div>
-            <h2 className="text-2xl font-semibold text-slate-50">
-              The Kinseso Life Hub
-            </h2>
-            <p className="text-sm text-slate-300/80 max-w-xl mt-2">
-              One place to discover trusted services – from life at home to
-              fashion, work, finance and wellbeing. Service providers can plug
-              into the platform; users access everything from a single app.
-            </p>
-          </div>
-          <Button
-            variant="outline"
-            className="border-emerald-400/60 text-emerald-200 hover:bg-emerald-500/10"
-            onClick={() => router.push("/hub")}
-          >
-            Open Life Hub
-          </Button>
-        </div>
-
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
-          {[
-            "Cleaning & Home Services",
-            "Care & Support",
-            "Logistics & Delivery",
-            "Dating & Relationships",
-            "Finance & Banking",
-            "Creators & Marketplace",
-            "Consulting & Coaching",
-            "Health & Wellbeing",
-            "Jobs & Opportunities",
-          ].map((label) => (
-            <Card
-              key={label}
-              className="bg-slate-900/60 border-slate-800 hover:border-emerald-400/60 hover:-translate-y-1 transition-all"
-            >
-              <CardContent className="py-6 text-sm text-slate-100">
-                {label}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* SECTION 4 – HOW IT WORKS */}
-      <section className="max-w-6xl mx-auto px-4 py-16 border-t border-slate-800/60">
-        <h2 className="text-2xl font-semibold text-slate-50 mb-6">
-          How KinsesoVision Works
-        </h2>
-        <ol className="grid md:grid-cols-3 gap-6 text-sm text-slate-300/80">
-          {[
-            "Download the app or sign in via the web portal.",
-            "Create your account and verify your details.",
-            "Connect cameras, devices and life services.",
-            "Stream evidence to the cloud automatically.",
-            "Access services, insights and analytics in one place.",
-            "Secure your life, work and projects with intelligent tools.",
-          ].map((step, i) => (
-            <li
-              key={i}
-              className="bg-slate-900/70 border border-slate-800 rounded-lg p-4 flex gap-3"
-            >
-              <span className="h-7 w-7 flex items-center justify-center rounded-full bg-emerald-500 text-slate-950 text-xs font-semibold">
-                {i + 1}
-              </span>
-              <p>{step}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      {/* SECTION 5 – WHY THIS MATTERS */}
-      <section className="max-w-6xl mx-auto px-4 py-16 border-t border-slate-800/60">
-        <h2 className="text-2xl font-semibold text-slate-50 mb-4">
-          Why KinsesoVision Matters
-        </h2>
-        <div className="grid md:grid-cols-3 gap-6 text-sm text-slate-300/80">
-          {[
-            ["Safety", "Evidence that survives theft, damage and device loss."],
-            [
-              "Convenience",
-              "One app instead of dozens – services, analytics and records in one place.",
-            ],
-            [
-              "Innovation",
-              "AI-native platform built around real problems: safety, employment, services and markets.",
-            ],
-            [
-              "Economic Impact",
-              "Supports creators, SMEs and service providers through a connected marketplace.",
-            ],
-            [
-              "Community",
-              "Tools for collaboration, forums, showcases and events around fashion and tech.",
-            ],
-            [
-              "UK-first Solution",
-              "Designed and engineered in the UK with a focus on security, ethics and scale.",
-            ],
-          ].map(([title, text]) => (
-            <Card
-              key={title}
-              className="bg-slate-900/70 border-slate-800 hover:border-emerald-400/60 transition-all"
-            >
-              <CardHeader>
-                <CardTitle className="text-sm text-emerald-200">
-                  {title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-xs">{text}</CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* SECTION 6 – DEMO & AI ASSISTANT */}
-      <section
-        id="demo-video"
-        className="max-w-6xl mx-auto px-4 py-16 border-t border-slate-800/60"
-      >
-        <div className="grid md:grid-cols-2 gap-8">
-          <Card className="bg-slate-900/70 border-slate-800">
-            <CardHeader>
-              <CardTitle className="text-sm text-emerald-200">
-                Product Demo (coming soon)
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3 text-sm text-slate-300/80">
-              <p>
-                This space will host a short demo video showing how KinsesoVision
-                handles live recording, service discovery and analytics in one
-                experience.
-              </p>
-              <div className="aspect-video rounded-lg bg-slate-800/80 flex items-center justify-center text-xs text-slate-500 border border-dashed border-slate-700">
-                Upload /demo.mp4 later and connect here.
+                <p>Dashcams, CCTV, bodycams, CarPlay radios and more.</p>
               </div>
+              <div>
+                <p className="font-semibold text-emerald-300">
+                  Life, work &amp; services in one hub
+                </p>
+                <p>Care, cleaning, logistics, jobs, dating, finance, creators.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* HERO VISUAL */}
+          <div className="relative">
+            <div className="aspect-video rounded-2xl bg-gradient-to-tr from-emerald-500/30 via-sky-500/20 to-purple-500/30 border border-emerald-500/40 shadow-2xl shadow-emerald-500/20 overflow-hidden flex items-center justify-center">
+              <div className="space-y-3 text-xs md:text-sm px-4">
+                <p className="font-semibold text-emerald-200">
+                  Live evidence vault
+                </p>
+                <p className="text-slate-100">
+                  Streams from vehicles, homes, workplaces and body-worn cameras
+                  are captured in real time and encrypted into the Kinseso
+                  cloud.
+                </p>
+                <div className="flex gap-2 flex-wrap">
+                  <Badge variant="green">Dashcam</Badge>
+                  <Badge variant="green">CCTV</Badge>
+                  <Badge variant="green">Bodycam</Badge>
+                  <Badge variant="green">CarPlay / Radio</Badge>
+                  <Badge variant="purple">AI incident detected</Badge>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CORE INNOVATION – KSEE */}
+        <section className="mt-12 grid gap-6 md:grid-cols-2">
+          <Card className="bg-slate-900/80 border-emerald-500/40">
+            <CardHeader>
+              <CardTitle>The Secure Evidence Engine</CardTitle>
+              <CardDescription>
+                Real-time automatic cloud recording so critical evidence is
+                never lost — even when devices are destroyed or stolen.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm">
+              <ul className="list-disc list-inside space-y-1 text-slate-100">
+                <li>Dashcams, CCTV, home cameras, doorbells and bodycams.</li>
+                <li>CarPlay radios and in-car systems for synced audio/video.</li>
+                <li>AI detection for break-ins, vandalism and road incidents.</li>
+                <li>
+                  Evidence packs with timelines, locations and exportable case
+                  summaries.
+                </li>
+              </ul>
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-900/70 border-slate-800">
+          {/* Life Hub Summary */}
+          <Card className="bg-slate-900/80">
             <CardHeader>
-              <CardTitle className="text-sm text-emerald-200">
-                Kinseso AI Assistant
-              </CardTitle>
+              <CardTitle>The Kinseso Life Hub</CardTitle>
+              <CardDescription>
+                One app where users discover services, connect with people and
+                manage work, money, safety and lifestyle.
+              </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-3 text-sm text-slate-300/80">
-              <p>
-                The integrated AI assistant will support users with fashion
-                analytics, safety recommendations, care insights and lifestyle
-                guidance, powered by the data already flowing through the app.
-              </p>
-              <p className="text-xs text-slate-400">
-                In future versions, this will become a full conversational
-                interface connected to evidence, services and user profiles –
-                designed for secure, auditable decision support.
-              </p>
+            <CardContent className="grid grid-cols-2 gap-3 text-xs md:text-sm">
+              <Badge variant="secondary">Cleaning &amp; home services</Badge>
+              <Badge variant="secondary">Care &amp; support</Badge>
+              <Badge variant="secondary">Logistics &amp; delivery</Badge>
+              <Badge variant="secondary">Fashion &amp; trends</Badge>
+              <Badge variant="secondary">Dating &amp; relationships</Badge>
+              <Badge variant="secondary">Jobs &amp; freelancing</Badge>
+              <Badge variant="secondary">Creators &amp; marketplace</Badge>
+              <Badge variant="secondary">Finance &amp; planning</Badge>
             </CardContent>
           </Card>
-        </div>
-      </section>
+        </section>
+
+        {/* HOW IT WORKS */}
+        <section className="mt-14">
+          <h2 className="text-xl md:text-2xl font-semibold mb-4">
+            How KinsesoVision works
+          </h2>
+          <div className="grid gap-4 md:grid-cols-3 text-sm">
+            <Card className="bg-slate-900/70">
+              <CardHeader>
+                <CardTitle className="text-base">1. Onboard</CardTitle>
+                <CardDescription>
+                  Download the app, register once and create your secure
+                  profile.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="bg-slate-900/70">
+              <CardHeader>
+                <CardTitle className="text-base">
+                  2. Connect devices &amp; services
+                </CardTitle>
+                <CardDescription>
+                  Link dashcams, CCTV, bodycams, CarPlay radios and cloud
+                  services into one account.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <Card className="bg-slate-900/70">
+              <CardHeader>
+                <CardTitle className="text-base">3. Live &amp; grow</CardTitle>
+                <CardDescription>
+                  Use the Life Hub to book services, analyse trends, discover
+                  jobs, connect with people and stay protected.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+        </section>
+
+        {/* WHY THIS MATTERS */}
+        <section className="mt-14 grid gap-6 md:grid-cols-2">
+          <Card className="bg-slate-900/80">
+            <CardHeader>
+              <CardTitle>Why this matters</CardTitle>
+              <CardDescription>
+                KinsesoVision is designed for a world that is fast, mobile,
+                data-driven and safety-conscious.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="grid grid-cols-2 gap-3 text-xs md:text-sm">
+              <Badge variant="secondary">Safety &amp; evidence</Badge>
+              <Badge variant="secondary">Convenience</Badge>
+              <Badge variant="secondary">Innovation</Badge>
+              <Badge variant="secondary">Economic opportunity</Badge>
+              <Badge variant="secondary">Community</Badge>
+              <Badge variant="secondary">Scalable platform</Badge>
+            </CardContent>
+          </Card>
+
+          {/* AI Assistant Teaser */}
+          <Card className="bg-slate-900/80">
+            <CardHeader>
+              <CardTitle>Kinseso AI Guide</CardTitle>
+              <CardDescription>
+                Built-in assistant for fashion analytics, safety insights,
+                service discovery and lifestyle recommendations.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-2 text-sm">
+              <p>
+                Ask questions like:{" "}
+                <span className="italic text-emerald-200">
+                  “Show me London fashion trends for the next season”
+                </span>{" "}
+                or{" "}
+                <span className="italic text-emerald-200">
+                  “Summarise evidence from my last 24 hours of dashcam
+                  recording.”
+                </span>
+              </p>
+              <Button variant="secondary" size="sm">
+                <Link href="/chat">Open AI assistant</Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </section>
+
+        {/* BLOG & TRENDS */}
+        <section className="mt-14">
+          <h2 className="text-xl md:text-2xl font-semibold mb-4">
+            Fashion, tech &amp; life trends
+          </h2>
+          <p className="text-sm text-slate-300 mb-4">
+            KinsesoVision connects fashion analytics, technology news and life
+            services – ideal for founders, creators and professionals watching
+            the UK and global market.
+          </p>
+          <Button variant="ghost" size="sm">
+            <Link href="/blog">Explore the blog</Link>
+          </Button>
+        </section>
+      </div>
     </main>
   );
 }
