@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import Link from 'next/link'
 import { 
   Globe, Heart, Activity, ShieldPlus, Palette, 
-  Scissors, Map, Lock, Bell, LayoutDashboard, Cloud, LogIn, Newspaper
+  Scissors, Map, Lock, Bell, LayoutDashboard, Cloud, LogIn, Newspaper, Search
 } from 'lucide-react'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -14,16 +14,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${inter.className} antialiased bg-[#020617]`}>
         <div className="flex min-h-screen">
           
-          {/* HIGH-TECH FIXED SIDEBAR */}
+          {/* HIGH-TECH SIDEBAR */}
           <nav className="w-72 bg-zinc-950/90 backdrop-blur-2xl text-zinc-400 p-6 border-r border-white/5 hidden md:flex flex-col fixed h-full z-50">
             <div className="mb-10 px-2 flex items-center justify-between">
               <Link href="/" className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 font-black italic tracking-tighter text-2xl uppercase">
                 Kinseso
               </Link>
-              <div className="relative p-2 bg-zinc-900 rounded-lg border border-white/5">
+              <div className="relative p-2 bg-zinc-900 rounded-lg border border-white/5 cursor-pointer">
                 <Bell size={16} />
                 <div className="absolute top-0 right-0 w-2 h-2 bg-rose-500 rounded-full border-2 border-zinc-950" />
               </div>
+            </div>
+
+            {/* SEARCH BAR */}
+            <div className="mb-6 relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-600" size={14} />
+              <input type="text" placeholder="Search OS..." className="w-full bg-white/5 border border-white/10 rounded-xl py-2 pl-10 pr-4 text-[10px] outline-none focus:border-blue-500" />
             </div>
 
             {/* AUTH ACTIONS */}
@@ -38,33 +44,40 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
             {/* NAVIGATION MENU */}
             <div className="flex-1 space-y-1 overflow-y-auto pr-2 scrollbar-hide">
-              <p className="text-[9px] font-black text-zinc-600 uppercase tracking-[0.3em] px-3 mb-2">Network</p>
+              <p className="text-[9px] font-black text-zinc-600 uppercase tracking-[0.3em] px-3 mb-2">Network Hubs</p>
               <Link href="/feed" className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-white/5 hover:text-blue-400 transition-all font-bold text-sm">
                 <Globe size={18} /> Social Community
               </Link>
               <Link href="/blog" className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-white/5 hover:text-amber-400 transition-all font-bold text-sm">
                 <Newspaper size={18} /> News & Blog
               </Link>
+              <Link href="/match" className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-white/5 hover:text-rose-400 transition-all font-bold text-sm">
+                <Heart size={18} /> Matchmaking
+              </Link>
               
-              <p className="text-[9px] font-black text-zinc-600 uppercase tracking-[0.3em] px-3 mb-2 mt-6">Sectors</p>
+              <p className="text-[9px] font-black text-zinc-600 uppercase tracking-[0.3em] px-3 mb-2 mt-6">Active Sectors</p>
               <Link href="/health" className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-white/5 hover:text-emerald-400 transition-all font-bold text-sm">
                 <Activity size={18} /> Health Hub
               </Link>
               <Link href="/beauty" className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-white/5 hover:text-pink-400 transition-all font-bold text-sm">
                 <Scissors size={18} /> Beauty Hub
               </Link>
-              <Link href="/vault" className="flex items-center gap-3 px-3 py-3 rounded-xl bg-blue-600/10 text-blue-400 border border-blue-500/20 mt-4 font-bold text-sm hover:bg-blue-600 hover:text-white transition-all">
-                <Cloud size={18} /> Evidence Vault
+              <Link href="/map" className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-white/5 hover:text-blue-500 transition-all font-bold text-sm">
+                <Map size={18} /> Logistics Map
+              </Link>
+              
+              <Link href="/vault" className="flex items-center gap-3 px-3 py-3 rounded-xl bg-blue-600/10 text-blue-400 border border-blue-500/20 mt-8 font-bold text-sm hover:bg-blue-600 hover:text-white transition-all">
+                <Cloud size={18} /> Evidence Cloud Storage
               </Link>
             </div>
 
-            {/* FOUNDER CARD */}
+            {/* FOUNDER BRANDING */}
             <div className="mt-auto pt-6 border-t border-zinc-900">
               <div className="flex items-center gap-3 p-3 bg-zinc-900/40 rounded-2xl border border-white/5">
-                <div className="w-10 h-10 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center text-white font-black italic">A</div>
+                <div className="w-10 h-10 bg-gradient-to-tr from-blue-600 to-emerald-500 rounded-xl flex items-center justify-center text-white font-black italic shadow-lg shadow-blue-500/20">A</div>
                 <div className="flex flex-col leading-none">
-                  <span className="text-[10px] font-black text-white uppercase tracking-tighter">Founder: Agbes</span>
-                  <span className="text-[8px] font-bold text-emerald-500 uppercase tracking-widest mt-1 flex items-center gap-1">● Live Vision OS</span>
+                  <span className="text-[10px] font-black text-white uppercase tracking-tighter italic">Founder: Agbes</span>
+                  <span className="text-[8px] font-bold text-emerald-500 uppercase tracking-widest mt-1">● Live Vision OS</span>
                 </div>
               </div>
             </div>
@@ -72,11 +85,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           {/* MAIN PAGE AREA */}
           <main className="flex-1 md:ml-72 bg-slate-950 text-white relative min-h-screen">
-             {/* Background Neon Auras */}
+             {/* Dynamic Neon Background Glows */}
              <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none" />
              <div className="fixed bottom-0 left-0 w-[500px] h-[500px] bg-emerald-600/10 blur-[120px] rounded-full pointer-events-none" />
              
-             <div className="p-8">
+             <div className="p-10 pb-24">
                {children}
              </div>
           </main>

@@ -1,70 +1,65 @@
 'use client';
 
-import React from 'react';
-import Link from 'next/link';
-import { User, Mail, Lock, ShieldCheck, ArrowRight, Github, Twitter } from 'lucide-react';
+import { registerUser } from './actions';
+import { useFormStatus } from 'react-dom';
+import { ShieldCheck, User, Mail, Lock, Briefcase } from 'lucide-react';
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button 
+      type="submit" 
+      disabled={pending}
+      className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black uppercase py-4 rounded-2xl hover:scale-[1.02] transition-all disabled:opacity-50"
+    >
+      {pending ? 'Initializing Account...' : 'Initialize Vision OS'}
+    </button>
+  );
+}
 
 export default function RegisterPage() {
   return (
-    <div className="min-h-[90vh] flex items-center justify-center p-4">
-      {/* Background Glows for the Register Page */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/20 blur-[120px] rounded-full -z-10" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/20 blur-[120px] rounded-full -z-10" />
-
-      <div className="w-full max-w-xl bg-zinc-900/50 backdrop-blur-2xl border border-white/10 rounded-[3rem] p-10 md:p-16 shadow-2xl">
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-black italic tracking-tighter text-white uppercase mb-2">Join the Vision</h1>
-          <p className="text-zinc-500 font-bold uppercase text-[10px] tracking-[0.3em]">Create your Kinseso Identity</p>
+    <div className="max-w-xl mx-auto py-10">
+      <div className="glass p-12 rounded-[3rem] relative overflow-hidden">
+        <div className="absolute top-0 right-0 p-8">
+           <ShieldCheck className="text-emerald-500/20" size={120} />
         </div>
+        
+        <h1 className="text-5xl font-black italic uppercase tracking-tighter mb-2">Join the OS</h1>
+        <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest mb-10">Secure Your Sector in the 2026 Fleet</p>
 
-        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-          <div className="grid grid-cols-2 gap-4">
+        <form action={registerUser} className="space-y-6">
+          <div className="space-y-2">
+            <label className="text-[10px] font-black uppercase text-zinc-500 ml-4">Full Name</label>
             <div className="relative">
-              <User className="absolute left-4 top-4 text-zinc-500" size={18} />
-              <input type="text" placeholder="First Name" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm text-white focus:border-blue-500 transition-all outline-none" />
+              <User className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-600" size={18} />
+              <input name="name" type="text" required placeholder="Agbes Founder" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-blue-500 transition-all text-sm font-bold" />
             </div>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-[10px] font-black uppercase text-zinc-500 ml-4">Email Address</label>
             <div className="relative">
-              <input type="text" placeholder="Last Name" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-sm text-white focus:border-blue-500 transition-all outline-none" />
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-600" size={18} />
+              <input name="email" type="email" required placeholder="founder@kinseso.com" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-blue-500 transition-all text-sm font-bold" />
             </div>
           </div>
 
-          <div className="relative">
-            <Mail className="absolute left-4 top-4 text-zinc-500" size={18} />
-            <input type="email" placeholder="Email Address" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm text-white focus:border-blue-500 transition-all outline-none" />
-          </div>
-
-          <div className="relative">
-            <Lock className="absolute left-4 top-4 text-zinc-500" size={18} />
-            <input type="password" placeholder="Create Password" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm text-white focus:border-blue-500 transition-all outline-none" />
-          </div>
-
-          <div className="p-6 bg-blue-600/5 border border-blue-500/20 rounded-2xl space-y-3">
-            <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-2">Select Primary Hub Access</p>
-            <div className="flex flex-wrap gap-2">
-              {['Health', 'Insurance', 'Fashion', 'Beauty', 'Matchmaking'].map((hub) => (
-                <button key={hub} className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-[9px] font-bold text-zinc-400 hover:bg-blue-600 hover:text-white transition-all uppercase">
-                  {hub}
-                </button>
-              ))}
+          <div className="space-y-2">
+            <label className="text-[10px] font-black uppercase text-zinc-500 ml-4">Select Sector</label>
+            <div className="relative">
+              <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-600" size={18} />
+              <select name="sector" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-blue-500 transition-all text-sm font-bold appearance-none">
+                <option value="logistics">Logistics & Supply</option>
+                <option value="health">Healthcare & Bio</option>
+                <option value="beauty">Aesthetics & Fashion</option>
+                <option value="tech">Software Engineering</option>
+              </select>
             </div>
           </div>
 
-          <button className="w-full bg-gradient-to-r from-blue-600 to-emerald-500 text-white font-black uppercase tracking-[0.2em] py-5 rounded-2xl shadow-xl shadow-blue-900/20 hover:scale-[1.02] transition-all flex items-center justify-center gap-3 mt-6">
-            Initialize Account <ArrowRight size={18} />
-          </button>
+          <SubmitButton />
         </form>
-
-        <div className="mt-10 pt-10 border-t border-white/5">
-          <p className="text-center text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-6">Or Connect Via Socials</p>
-          <div className="flex gap-4">
-            <button className="flex-1 bg-white/5 border border-white/10 py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-white/10 transition-all">
-              <Github size={18} className="text-white" />
-            </button>
-            <button className="flex-1 bg-white/5 border border-white/10 py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-white/10 transition-all">
-              <Twitter size={18} className="text-blue-400" />
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   );
