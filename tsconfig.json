@@ -28,15 +28,13 @@
       ]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts",
-    "**/*.mts",
-    "next.config.mjs"
-  ],
+ "include": [
+  "next-env.d.ts",
+  "globals.d.ts", 
+  "**/*.ts",
+  "**/*.tsx",
+  ".next/types/**/*.ts"
+],
   "exclude": [
     "node_modules"
   ]

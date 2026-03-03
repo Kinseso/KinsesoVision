@@ -1,94 +1,82 @@
 'use client';
-
-import React, { useState, useEffect } from 'react';
-import { Map as MapIcon, Shield, Zap, Crosshair, Navigation, Wifi } from 'lucide-react';
+import React from 'react';
+import * as Icons from 'lucide-react';
 
 export default function LogisticsMap() {
-  const [pulse, setPulse] = useState(true);
-
-  // Simulate real-time radar pulse
-  useEffect(() => {
-    const interval = setInterval(() => setPulse(!pulse), 2000);
-    return () => clearInterval(interval);
-  }, [pulse]);
+  const activeNodes = [
+    { id: 1, location: "London Terminal", status: "Active", load: "82%", color: "text-emerald-400" },
+    { id: 2, location: "Lagos Hub", status: "In Transit", load: "45%", color: "text-blue-400" },
+    { id: 3, location: "Accra Port", status: "Processing", load: "12%", color: "text-amber-400" },
+  ];
 
   return (
-    <div className="max-w-7xl mx-auto py-10">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
+    <div className="max-w-6xl mx-auto">
+      <div className="flex justify-between items-start mb-10">
         <div>
-          <h1 className="text-7xl font-black italic tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-600 uppercase">
-            Logistics Radar
-          </h1>
-          <p className="text-zinc-500 mt-4 text-xl font-medium uppercase tracking-[0.3em] flex items-center gap-3">
-            <Wifi size={20} className="text-blue-500 animate-pulse" /> Bradford Node: Active
-          </p>
+          <h1 className="text-5xl font-black italic uppercase tracking-tighter text-white">Global Radar</h1>
+          <p className="text-zinc-500 text-xs font-bold uppercase tracking-[0.3em] mt-2">Real-Time Asset Tracking OS</p>
         </div>
         <div className="flex gap-4">
-          <div className="bg-zinc-900 border border-white/5 p-4 rounded-2xl">
-            <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Active Fleet</div>
-            <div className="text-2xl font-black text-white italic">124 Units</div>
+          <div className="bg-zinc-900 border border-white/5 px-6 py-3 rounded-2xl">
+            <p className="text-[8px] font-black text-zinc-500 uppercase mb-1">Active Nodes</p>
+            <p className="text-xl font-black text-emerald-500 tracking-tighter">412</p>
           </div>
-          <div className="bg-zinc-900 border border-white/5 p-4 rounded-2xl">
-            <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Security Level</div>
-            <div className="text-2xl font-black text-emerald-500 italic">MAX</div>
+          <div className="bg-zinc-900 border border-white/5 px-6 py-3 rounded-2xl">
+            <p className="text-[8px] font-black text-zinc-500 uppercase mb-1">System Load</p>
+            <p className="text-xl font-black text-blue-500 tracking-tighter">12.4ms</p>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        {/* LEFT PANEL: DATA FEED */}
-        <div className="lg:col-span-1 space-y-4">
-          <div className="bg-zinc-900/50 p-6 rounded-[2rem] border border-white/5">
-            <h3 className="text-xs font-black uppercase tracking-widest text-zinc-400 mb-6 flex items-center gap-2">
-              <Navigation size={14} /> Live Tracking
-            </h3>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* THE RADAR VISUAL */}
+        <div className="lg:col-span-2 bg-zinc-950 rounded-[3rem] border border-white/10 p-4 relative overflow-hidden aspect-video flex items-center justify-center">
+          {/* Pulsing Radar Circles */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-[80%] h-[80%] border border-blue-500/10 rounded-full animate-ping" />
+            <div className="absolute w-[60%] h-[60%] border border-blue-500/20 rounded-full" />
+            <div className="absolute w-[40%] h-[40%] border border-blue-500/30 rounded-full" />
+            {/* Crosshair */}
+            <div className="absolute w-full h-[1px] bg-white/5" />
+            <div className="absolute h-full w-[1px] bg-white/5" />
+          </div>
+
+          <Icons.Navigation className="text-blue-500 animate-bounce" size={40} />
+          <div className="absolute bottom-8 left-8 bg-black/60 backdrop-blur-md p-4 rounded-2xl border border-white/10">
+             <p className="text-[9px] font-black text-emerald-400 uppercase flex items-center gap-2">
+               <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" /> Live Tracking Enabled
+             </p>
+          </div>
+        </div>
+
+        {/* STATS SIDEBAR */}
+        <div className="space-y-6">
+          <div className="bg-white/5 border border-white/10 rounded-[2.5rem] p-8">
+            <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400 mb-6">Live Node Status</h2>
             <div className="space-y-6">
-              {[
-                { id: 'KV-091', loc: 'Little Germany', status: 'In Transit' },
-                { id: 'KV-112', loc: 'University Dist', status: 'Delivered' },
-                { id: 'KV-204', loc: 'Forster Square', status: 'Loading' },
-              ].map((item, i) => (
-                <div key={i} className="flex justify-between items-center group cursor-pointer">
+              {activeNodes.map((node) => (
+                <div key={node.id} className="flex items-center justify-between border-b border-white/5 pb-4 last:border-0">
                   <div>
-                    <div className="text-sm font-black text-white italic">{item.id}</div>
-                    <div className="text-[10px] font-bold text-zinc-500 uppercase">{item.loc}</div>
+                    <p className="text-xs font-black text-white uppercase">{node.location}</p>
+                    <p className={`text-[9px] font-bold uppercase ${node.color}`}>{node.status}</p>
                   </div>
-                  <div className={`text-[9px] font-black px-2 py-1 rounded border ${item.status === 'In Transit' ? 'border-blue-500 text-blue-500' : 'border-zinc-800 text-zinc-600'}`}>
-                    {item.status}
+                  <div className="text-right">
+                    <p className="text-[10px] font-black text-white">{node.load}</p>
+                    <div className="w-16 h-1 bg-zinc-800 rounded-full mt-1 overflow-hidden">
+                      <div className="bg-blue-500 h-full" style={{ width: node.load }} />
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-        </div>
 
-        {/* CENTER: THE RADAR MAP */}
-        <div className="lg:col-span-3 h-[600px] bg-zinc-950 rounded-[3rem] border border-blue-500/20 relative overflow-hidden group">
-          {/* Radar Background (Simulated) */}
-          <div className="absolute inset-0 opacity-20">
-             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-50" />
-             {/* Circular Grid */}
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-blue-500/10 rounded-full" />
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-blue-500/10 rounded-full" />
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] border border-blue-500/10 rounded-full" />
-          </div>
-
-          {/* Radar Sweep Animation */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-conic-gradient from-blue-500/20 to-transparent rounded-full animate-spin duration-[4s]" />
-
-          {/* Random Pulsing "Nodes" */}
-          <div className="absolute top-[30%] left-[45%] w-3 h-3 bg-blue-500 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.8)] animate-pulse" />
-          <div className="absolute top-[60%] left-[20%] w-3 h-3 bg-emerald-500 rounded-full shadow-[0_0_15px_rgba(16,185,129,0.8)]" />
-          <div className="absolute top-[50%] left-[70%] w-3 h-3 bg-blue-500 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.8)]" />
-
-          {/* Map Overlay Text */}
-          <div className="absolute bottom-8 left-8">
-            <div className="text-3xl font-black italic text-white uppercase tracking-tighter opacity-50">Bradford Sector 01</div>
-            <div className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.4em]">Satellite Lock: 100%</div>
-          </div>
-
-          <div className="absolute top-8 right-8">
-            <Crosshair className="text-blue-500 opacity-50" size={32} />
+          <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[2.5rem] p-8 text-white">
+            <Icons.ShieldCheck size={32} className="mb-4" />
+            <h3 className="font-black uppercase italic leading-none text-lg mb-2">Encrypted Tunnel</h3>
+            <p className="text-[10px] font-bold opacity-80 uppercase leading-relaxed">
+              All logistics data is routed through the Evidence Cloud Storage with 256-bit encryption.
+            </p>
           </div>
         </div>
       </div>

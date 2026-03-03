@@ -1,117 +1,79 @@
 'use client';
-
 import React from 'react';
-import { ShieldCheck, HardDrive, FileText, PlayCircle, Lock, Eye, Download, Search } from 'lucide-react';
+import * as Icons from 'lucide-react';
 
 export default function EvidenceVault() {
-  const evidences = [
-    { title: "Bradford Logistics Node", type: "Blueprints", date: "2026-02-14", status: "Verified" },
-    { title: "Health Hub Prototypes", type: "Technical Spec", date: "2026-03-01", status: "Secured" },
-    { title: "Founder Identity Data", type: "KYC/Biometric", date: "2026-01-20", status: "Encrypted" },
-    { title: "Insurance Liability Bond", type: "Legal Document", date: "2026-02-28", status: "Verified" }
+  const files = [
+    { name: "Sector_License_2026.pdf", size: "2.4 MB", type: "PDF", date: "Mar 01" },
+    { name: "Vision_Identity_Proof.jpg", size: "1.1 MB", type: "IMG", date: "Feb 28" },
   ];
 
   return (
-    <div className="max-w-7xl mx-auto py-10 px-6">
-      {/* HEADER SECTION */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-16">
-        <div className="relative">
-          <div className="absolute -top-10 -left-10 w-40 h-40 bg-blue-500/20 blur-[80px] rounded-full" />
-          <h1 className="text-8xl font-black italic tracking-tighter uppercase bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-400 to-emerald-400">
-            Evidence Vault
-          </h1>
-          <p className="text-zinc-500 font-black tracking-[0.5em] uppercase text-xs mt-4 flex items-center gap-3">
-            <Lock size={14} className="text-emerald-500" /> SECURE BLOCKCHAIN STORAGE • HOME OFFICE COMPLIANT
-          </p>
+    <div className="max-w-6xl mx-auto">
+      <div className="flex justify-between items-start mb-10">
+        <div>
+          <h1 className="text-5xl font-black italic uppercase tracking-tighter text-white">Evidence Vault</h1>
+          <p className="text-zinc-500 text-xs font-bold uppercase tracking-[0.3em] mt-2">Secured Cloud Storage OS</p>
         </div>
-        <div className="flex bg-zinc-900/80 backdrop-blur-md p-2 rounded-2xl border border-white/5 shadow-2xl">
-            <div className="px-6 py-3 border-r border-white/5">
-                <div className="text-[10px] font-black text-zinc-500 uppercase">Vault Integrity</div>
-                <div className="text-xl font-black text-emerald-400 uppercase italic">99.9%</div>
-            </div>
-            <div className="px-6 py-3">
-                <div className="text-[10px] font-black text-zinc-500 uppercase">Encrypted Files</div>
-                <div className="text-xl font-black text-white uppercase italic">14.2 GB</div>
-            </div>
-        </div>
+        <button className="bg-white text-black px-6 py-3 rounded-2xl font-black uppercase text-[10px] flex items-center gap-2 hover:bg-blue-500 hover:text-white transition-all">
+          <Icons.Upload size={14} /> Upload Evidence
+        </button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        {/* MAIN VISUAL: THE HOLOGRAPHIC VAULT INTERFACE */}
-        <div className="lg:col-span-2 space-y-8">
-            <div className="glass rounded-[3rem] p-1 h-[450px] relative overflow-hidden group">
-                {/* Simulated Video/Graphic Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-zinc-950 to-indigo-900/40" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="relative">
-                        <div className="w-64 h-64 border-[1px] border-blue-500/20 rounded-full animate-spin-slow p-4 flex items-center justify-center">
-                            <div className="w-48 h-48 border-[1px] border-emerald-500/30 rounded-full animate-reverse-spin p-4 flex items-center justify-center">
-                                <ShieldCheck size={80} className="text-blue-500 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]" />
-                            </div>
-                        </div>
-                        {/* Floating Data Points */}
-                        <div className="absolute -top-10 -right-20 bg-zinc-900/80 p-3 rounded-xl border border-white/10 text-[9px] font-black uppercase italic animate-bounce">0X-EVIDENCE-LOCKED</div>
-                        <div className="absolute bottom-10 -left-20 bg-zinc-900/80 p-3 rounded-xl border border-white/10 text-[9px] font-black uppercase italic">GPS-STAMP-VERIFIED</div>
-                    </div>
-                </div>
-                
-                <div className="absolute bottom-10 left-10 right-10 flex justify-between items-end">
-                    <div className="text-left">
-                        <div className="text-2xl font-black text-white italic uppercase">Security Matrix</div>
-                        <div className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Global Surveillance Monitoring Active</div>
-                    </div>
-                    <PlayCircle className="text-white opacity-20 hover:opacity-100 cursor-pointer transition-opacity" size={48} />
-                </div>
+        {/* FILE EXPLORER */}
+        <div className="lg:col-span-2 space-y-4">
+          <div className="bg-white/5 border border-white/10 rounded-3xl p-6">
+            <div className="grid grid-cols-4 text-[9px] font-black uppercase text-zinc-500 tracking-widest mb-6 px-4">
+              <div className="col-span-2">File Name</div>
+              <div>Size</div>
+              <div className="text-right">Action</div>
             </div>
-
-            {/* LOWER GRID FOR VIDEOS/EVIDENCE */}
-            <div className="grid grid-cols-2 gap-6">
-                <div className="glass p-8 rounded-[2rem] hover:border-blue-500/30 transition-all cursor-pointer group">
-                    <div className="w-10 h-10 bg-blue-500 rounded-xl mb-4 flex items-center justify-center">
-                        <PlayCircle className="text-white" size={20} />
-                    </div>
-                    <h4 className="text-lg font-black italic uppercase">Live Demo Clips</h4>
-                    <p className="text-zinc-500 text-[10px] font-bold uppercase mt-2">Operational Screen Recordings</p>
+            
+            <div className="space-y-2">
+              {files.map((file, i) => (
+                <div key={i} className="grid grid-cols-4 items-center p-4 bg-zinc-950/50 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-all cursor-pointer">
+                  <div className="col-span-2 flex items-center gap-3">
+                    <Icons.File className="text-blue-500" size={18} />
+                    <span className="text-xs font-bold text-white truncate">{file.name}</span>
+                  </div>
+                  <div className="text-[10px] font-bold text-zinc-500">{file.size}</div>
+                  <div className="text-right">
+                    <button className="text-zinc-500 hover:text-white transition-colors">
+                      <Icons.MoreVertical size={16} />
+                    </button>
+                  </div>
                 </div>
-                <div className="glass p-8 rounded-[2rem] hover:border-emerald-500/30 transition-all cursor-pointer group">
-                    <div className="w-10 h-10 bg-emerald-500 rounded-xl mb-4 flex items-center justify-center">
-                        <FileText className="text-white" size={20} />
-                    </div>
-                    <h4 className="text-lg font-black italic uppercase">Legal Vault</h4>
-                    <p className="text-zinc-500 text-[10px] font-bold uppercase mt-2">Patent & Trademark Filings</p>
-                </div>
+              ))}
             </div>
+          </div>
         </div>
 
-        {/* RIGHT PANEL: DOCUMENT LIST */}
-        <div className="lg:col-span-1 glass rounded-[3rem] p-8 flex flex-col">
-            <h3 className="text-xs font-black uppercase tracking-widest text-zinc-400 mb-8 flex items-center gap-2">
-                <Search size={14} /> Document Index
-            </h3>
-            <div className="space-y-4 flex-1">
-                {evidences.map((doc, i) => (
-                    <div key={i} className="p-4 bg-white/5 rounded-2xl border border-white/5 hover:bg-white/10 transition-all group cursor-pointer">
-                        <div className="flex justify-between items-start mb-2">
-                            <span className="text-[8px] font-black bg-blue-600 px-2 py-0.5 rounded text-white uppercase">{doc.type}</span>
-                            <span className="text-[8px] font-black text-emerald-500 uppercase">{doc.status}</span>
-                        </div>
-                        <div className="text-sm font-black italic text-white uppercase">{doc.title}</div>
-                        <div className="flex justify-between items-center mt-3 pt-3 border-t border-white/5">
-                            <span className="text-[8px] font-bold text-zinc-500">{doc.date}</span>
-                            <div className="flex gap-2">
-                                <Eye size={12} className="text-zinc-600 hover:text-white" />
-                                <Download size={12} className="text-zinc-600 hover:text-white" />
-                            </div>
-                        </div>
-                    </div>
-                ))}
+        {/* STORAGE STATS */}
+        <div className="space-y-6">
+          <div className="bg-blue-600 rounded-[2.5rem] p-8 text-white relative overflow-hidden">
+            <Icons.Cloud className="absolute -right-4 -bottom-4 opacity-20" size={120} />
+            <p className="text-[10px] font-black uppercase tracking-widest mb-2 opacity-80">Storage Used</p>
+            <p className="text-4xl font-black italic mb-6">12.4 <span className="text-xl">GB</span></p>
+            <div className="w-full h-2 bg-black/20 rounded-full overflow-hidden mb-4">
+              <div className="bg-white h-full w-[40%]" />
             </div>
-            <button className="w-full mt-8 bg-white text-black font-black uppercase text-[10px] py-4 rounded-2xl hover:bg-blue-500 hover:text-white transition-all">
-                Export Evidence Package (PDF)
-            </button>
-        </div>
+            <p className="text-[9px] font-bold uppercase tracking-tight">Level 1 Encryption Active</p>
+          </div>
 
+          <div className="bg-white/5 border border-white/10 rounded-[2.5rem] p-8">
+            <h3 className="text-[10px] font-black uppercase tracking-widest text-zinc-400 mb-4">Security Log</h3>
+            <div className="space-y-4">
+              <div className="flex gap-3">
+                <div className="w-1 h-8 bg-emerald-500 rounded-full" />
+                <div>
+                  <p className="text-[10px] font-black text-white uppercase">Vault Accessed</p>
+                  <p className="text-[8px] font-bold text-zinc-600 uppercase">Just Now • London, UK</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
