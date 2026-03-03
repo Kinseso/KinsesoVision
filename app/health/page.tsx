@@ -1,51 +1,48 @@
-'use client';
-
-import { HeartPulse, Activity, Stethoscope, AlertCircle, CalendarPlus, UserPlus } from 'lucide-react';
+import { Activity, Heart, Thermometer, Wind } from 'lucide-react';
 
 export default function HealthHub() {
   return (
-    <div className="min-h-screen bg-emerald-50/30 p-6 md:p-12">
-      <div className="max-w-4xl mx-auto">
-        <header className="mb-12">
-          <div className="flex items-center gap-2 text-emerald-600 mb-2">
-            <HeartPulse size={24} />
-            <span className="font-black uppercase tracking-widest text-sm">Emergency & Care Hub</span>
-          </div>
-          <h1 className="text-4xl font-black text-zinc-900 tracking-tight">Kinseso Health Care</h1>
-        </header>
+    <div className="max-w-7xl mx-auto py-10 px-6">
+      <div className="relative mb-16">
+        <div className="absolute -top-20 -left-20 w-64 h-64 bg-emerald-500/20 blur-[100px] rounded-full" />
+        <h1 className="text-8xl font-black italic tracking-tighter uppercase text-gradient-emerald">Health OS</h1>
+        <p className="text-emerald-500/60 font-black tracking-[0.5em] uppercase text-xs mt-4">Kinseso Bio-Integrated Monitoring</p>
+      </div>
 
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* VITAL CHART GRAPHIC */}
+        <div className="lg:col-span-2 glass rounded-[3rem] p-10 overflow-hidden relative">
+          <div className="flex justify-between items-center mb-10">
+            <h2 className="text-2xl font-black italic uppercase">Real-Time Vitals</h2>
+            <div className="flex gap-2">
+              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
+              <span className="text-[10px] font-black uppercase text-emerald-500">Live Stream</span>
+            </div>
+          </div>
+          
+          {/* Visualizing a Heartbeat Waveform */}
+          <div className="h-64 flex items-end gap-1">
+            {[20, 40, 30, 90, 20, 40, 80, 100, 30, 50, 20, 40, 90, 30, 60, 20, 40, 50, 90, 100, 40, 20].map((h, i) => (
+              <div key={i} className="flex-1 bg-emerald-500/40 rounded-t-sm hover:bg-emerald-400 transition-all cursor-pointer" style={{ height: `${h}%` }} />
+            ))}
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent opacity-60" />
+        </div>
+
+        {/* STATS STACK */}
         <div className="space-y-6">
-          <div className="bg-white p-8 rounded-[2.5rem] border-2 border-emerald-100 shadow-xl flex flex-col md:flex-row gap-8 items-center">
-            <div className="w-24 h-24 bg-emerald-100 rounded-[2rem] flex items-center justify-center text-emerald-600 animate-pulse">
-              <Activity size={48} />
-            </div>
-            <div className="flex-1 text-center md:text-left">
-              <h3 className="text-2xl font-black text-zinc-900 mb-2">Request Urgent Care</h3>
-              <p className="text-sm text-zinc-500 mb-6">Connect directly with a verified Kinseso Health Professional in your local area.</p>
-              <div className="flex flex-wrap gap-3 justify-center md:justify-start">
-                <button className="bg-emerald-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-zinc-950 transition-all">Emergency Signal</button>
-                <button className="bg-white border-2 border-emerald-100 text-emerald-600 px-6 py-3 rounded-xl font-bold hover:bg-emerald-50 transition-all">Book Consultation</button>
-              </div>
-            </div>
+          <div className="glass p-8 rounded-[2rem] border-l-4 border-emerald-500">
+            <Heart className="text-emerald-500 mb-4" size={32} />
+            <div className="text-4xl font-black italic">72 BPM</div>
+            <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mt-2">Average Heart Rate</div>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-zinc-900 p-8 rounded-[2.5rem] text-white">
-              <Stethoscope className="text-emerald-400 mb-4" />
-              <h4 className="font-bold mb-2">General Health Check</h4>
-              <p className="text-xs text-zinc-400 mb-6">AI-assisted diagnosis and local doctor routing.</p>
-              <div className="w-full h-1 bg-zinc-800 rounded-full overflow-hidden">
-                <div className="w-3/4 h-full bg-emerald-400" />
-              </div>
-            </div>
-            <div className="bg-white p-8 rounded-[2.5rem] border border-zinc-200">
-              <UserPlus className="text-blue-500 mb-4" />
-              <h4 className="font-bold text-zinc-900 mb-2">Caregiver Network</h4>
-              <p className="text-xs text-zinc-500">Join our network of healthcare responders.</p>
-            </div>
+          <div className="glass p-8 rounded-[2rem] border-l-4 border-cyan-500">
+            <Wind className="text-cyan-500 mb-4" size={32} />
+            <div className="text-4xl font-black italic">98%</div>
+            <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mt-2">Oxygen Saturation</div>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }

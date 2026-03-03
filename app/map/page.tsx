@@ -1,69 +1,94 @@
 'use client';
 
-import React from 'react';
-import { Map as MapIcon, Shield, Truck, AlertTriangle, Navigation } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Map as MapIcon, Shield, Zap, Crosshair, Navigation, Wifi } from 'lucide-react';
 
-export default function EvidenceMap() {
+export default function LogisticsMap() {
+  const [pulse, setPulse] = useState(true);
+
+  // Simulate real-time radar pulse
+  useEffect(() => {
+    const interval = setInterval(() => setPulse(!pulse), 2000);
+    return () => clearInterval(interval);
+  }, [pulse]);
+
   return (
-    <div className="h-screen bg-slate-100 flex flex-col">
-      {/* MAP HEADER */}
-      <div className="bg-white p-6 border-b border-zinc-200 flex items-center justify-between">
+    <div className="max-w-7xl mx-auto py-10">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
         <div>
-          <h1 className="text-2xl font-black text-zinc-900 tracking-tight flex items-center gap-2">
-            <MapIcon className="text-blue-600" /> Logistics Intelligence Map
+          <h1 className="text-7xl font-black italic tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-600 uppercase">
+            Logistics Radar
           </h1>
-          <p className="text-xs font-bold text-zinc-400 uppercase tracking-widest mt-1">Live Tracking: Bradford, UK</p>
+          <p className="text-zinc-500 mt-4 text-xl font-medium uppercase tracking-[0.3em] flex items-center gap-3">
+            <Wifi size={20} className="text-blue-500 animate-pulse" /> Bradford Node: Active
+          </p>
         </div>
-        <div className="flex gap-3">
-          <div className="px-4 py-2 bg-emerald-50 text-emerald-700 rounded-xl text-xs font-black flex items-center gap-2">
-            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
-            12 SENSORS ONLINE
+        <div className="flex gap-4">
+          <div className="bg-zinc-900 border border-white/5 p-4 rounded-2xl">
+            <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Active Fleet</div>
+            <div className="text-2xl font-black text-white italic">124 Units</div>
+          </div>
+          <div className="bg-zinc-900 border border-white/5 p-4 rounded-2xl">
+            <div className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">Security Level</div>
+            <div className="text-2xl font-black text-emerald-500 italic">MAX</div>
           </div>
         </div>
       </div>
 
-      {/* MAP VIEWPORT (Simulated) */}
-      <div className="flex-1 relative bg-zinc-200 overflow-hidden">
-        {/* Placeholder for actual Map Component */}
-        <div className="absolute inset-0 bg-[url('https://www.google.com/maps/vt/pb=!1m4!1m3!1i13!2i4044!3i2691!2m3!1e0!2sm!3i605151528!3m8!2sen!3suk!5e1105!12m4!1e68!2m2!1sset!2sRoadmap!4e0!5m1!5f2')] bg-cover opacity-60 grayscale" />
-        
-        {/* FLOATING PINS */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 p-4 bg-white rounded-2xl shadow-2xl border border-blue-500 animate-bounce cursor-pointer group">
-          <Shield size={24} className="text-blue-600" />
-          <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-48 bg-zinc-950 p-3 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
-            <p className="text-white text-[10px] font-black uppercase">Active Evidence Node</p>
-            <p className="text-zinc-500 text-[9px] font-bold">Listerhills Rd Security</p>
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        {/* LEFT PANEL: DATA FEED */}
+        <div className="lg:col-span-1 space-y-4">
+          <div className="bg-zinc-900/50 p-6 rounded-[2rem] border border-white/5">
+            <h3 className="text-xs font-black uppercase tracking-widest text-zinc-400 mb-6 flex items-center gap-2">
+              <Navigation size={14} /> Live Tracking
+            </h3>
+            <div className="space-y-6">
+              {[
+                { id: 'KV-091', loc: 'Little Germany', status: 'In Transit' },
+                { id: 'KV-112', loc: 'University Dist', status: 'Delivered' },
+                { id: 'KV-204', loc: 'Forster Square', status: 'Loading' },
+              ].map((item, i) => (
+                <div key={i} className="flex justify-between items-center group cursor-pointer">
+                  <div>
+                    <div className="text-sm font-black text-white italic">{item.id}</div>
+                    <div className="text-[10px] font-bold text-zinc-500 uppercase">{item.loc}</div>
+                  </div>
+                  <div className={`text-[9px] font-black px-2 py-1 rounded border ${item.status === 'In Transit' ? 'border-blue-500 text-blue-500' : 'border-zinc-800 text-zinc-600'}`}>
+                    {item.status}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="absolute top-1/2 left-1/4 p-3 bg-white rounded-full shadow-xl border border-emerald-500 animate-pulse">
-          <Truck size={20} className="text-emerald-600" />
-        </div>
+        {/* CENTER: THE RADAR MAP */}
+        <div className="lg:col-span-3 h-[600px] bg-zinc-950 rounded-[3rem] border border-blue-500/20 relative overflow-hidden group">
+          {/* Radar Background (Simulated) */}
+          <div className="absolute inset-0 opacity-20">
+             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-50" />
+             {/* Circular Grid */}
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-blue-500/10 rounded-full" />
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-blue-500/10 rounded-full" />
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] border border-blue-500/10 rounded-full" />
+          </div>
 
-        {/* MAP OVERLAY LEGEND */}
-        <div className="absolute bottom-10 left-10 space-y-3">
-          <div className="bg-white/90 backdrop-blur-md p-6 rounded-[2rem] shadow-2xl border border-white max-w-xs">
-            <h3 className="font-black text-zinc-900 mb-4 text-sm uppercase">Infrastructure Near You</h3>
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-blue-50 text-blue-600 rounded-lg"><Shield size={16} /></div>
-                <div>
+          {/* Radar Sweep Animation */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-conic-gradient from-blue-500/20 to-transparent rounded-full animate-spin duration-[4s]" />
 
-http://googleusercontent.com/map_location_reference/1
-                  <p className="text-xs font-black">[White Collar Security LTD](http://googleusercontent.com/map_location_reference/0)</p>
-                  <p className="text-[10px] text-zinc-400 font-bold">Listerhills Rd</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-emerald-50 text-emerald-600 rounded-lg"><Truck size={16} /></div>
-                <div>
+          {/* Random Pulsing "Nodes" */}
+          <div className="absolute top-[30%] left-[45%] w-3 h-3 bg-blue-500 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.8)] animate-pulse" />
+          <div className="absolute top-[60%] left-[20%] w-3 h-3 bg-emerald-500 rounded-full shadow-[0_0_15px_rgba(16,185,129,0.8)]" />
+          <div className="absolute top-[50%] left-[70%] w-3 h-3 bg-blue-500 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.8)]" />
 
-http://googleusercontent.com/map_location_reference/3
-                  <p className="text-xs font-black">[Evri ParcelShop](http://googleusercontent.com/map_location_reference/2)</p>
-                  <p className="text-[10px] text-zinc-400 font-bold">Open 24 Hours</p>
-                </div>
-              </div>
-            </div>
+          {/* Map Overlay Text */}
+          <div className="absolute bottom-8 left-8">
+            <div className="text-3xl font-black italic text-white uppercase tracking-tighter opacity-50">Bradford Sector 01</div>
+            <div className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.4em]">Satellite Lock: 100%</div>
+          </div>
+
+          <div className="absolute top-8 right-8">
+            <Crosshair className="text-blue-500 opacity-50" size={32} />
           </div>
         </div>
       </div>

@@ -3,62 +3,35 @@
 @tailwind utilities;
 
 :root {
-  --background: 210 40% 98%;
-  --foreground: 222 47% 11%;
+  --background: 222 47% 11%;
+  --foreground: 213 27% 96%;
 }
 
-/* 1. Global Background Reset */
 body {
-  margin: 0;
-  padding: 0;
-  background-color: #f8fafc; /* Ultra-clean slate white */
-  background-image: 
-    radial-gradient(at 0% 0%, hsla(210, 100%, 98%, 1) 0, transparent 50%), 
-    radial-gradient(at 100% 0%, hsla(210, 100%, 98%, 1) 0, transparent 50%);
-  color: #0f172a;
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
+  background: #020617;
+  color: #f8fafc;
   overflow-x: hidden;
+  font-feature-settings: "overline" 0, "salt" 1;
 }
 
-/* 2. Selection Color (Blue Brand) */
-::selection {
-  background-color: rgba(37, 99, 235, 0.2);
-  color: #1e40af;
+/* Stunning Neon Auras */
+.bg-glow-blue { background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 70%); }
+.bg-glow-emerald { background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.15) 0%, transparent 70%); }
+.bg-glow-rose { background: radial-gradient(circle at 50% 50%, rgba(244, 63, 94, 0.15) 0%, transparent 70%); }
+
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
-/* 3. Smooth Transitions */
-html {
-  scroll-behavior: smooth;
-}
+.text-gradient-emerald { @apply bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400; }
+.text-gradient-blue { @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500; }
+.text-gradient-rose { @apply bg-clip-text text-transparent bg-gradient-to-r from-rose-400 to-orange-400; }
 
-/* 4. Hide Scrollbars on Sidebar */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-/* 5. Custom Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-main {
-  animation: fadeIn 0.4s ease-out;
-}
-
-/* 6. High-End Card Glass Effect */
-.glass-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* 7. Typography tightening */
-h1, h2, h3, h4 {
-  letter-spacing: -0.03em !important;
-}
+.animate-pulse-soft { animation: pulse-soft 3s infinite; }
