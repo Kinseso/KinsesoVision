@@ -1,11 +1,3 @@
-You’re right to ask—yes, we must update the layout. If we add those new pages but don't add the buttons to the sidebar, you won't be able to click on them!
-
-I have updated the layout to include Cryptocurrency and the Food Hub, and I've also integrated the Social Media links you mentioned earlier.
-
-🛠️ The Updated app/layout.tsx (Full Version)
-Paste this over your current layout. I have organized it so the new hubs are easy to find.
-
-TypeScript
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
@@ -89,7 +81,6 @@ export default function RootLayout({
 
           {/* MAIN CONTENT VIEWPORT */}
           <main className="flex-1 md:ml-72 bg-slate-950 relative min-h-screen overflow-x-hidden">
-             {/* Background Effects */}
              <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-blue-600/5 blur-[120px] rounded-full pointer-events-none" />
              <div className="fixed bottom-0 left-0 w-[500px] h-[500px] bg-emerald-600/5 blur-[120px] rounded-full pointer-events-none" />
              
