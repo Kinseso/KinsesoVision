@@ -8,19 +8,104 @@ generator client {
 }
 
 model User {
-  id             String          @id @default(cuid())
-  email          String          @unique
-  name           String?
-  sentRequests   FriendRequest[] @relation("SentRequests")
+  id       String  @id @default(cuid())
+  email    String  @unique
+  name     String?
+  password String?
+
+  devices CameraDevice[]
+
+  files     File[]
+  incidents Incident[]
+
+  folders Folder[]
+  shares  Share[]
+
+  sentRequests     FriendRequest[] @relation("SentRequests")
   receivedRequests FriendRequest[] @relation("ReceivedRequests")
 }
 
+model CameraDevice {
+  id        String    @id @default(cuid())
+  name      String
+  model     String?
+  vehicle   String?
+  status    String    @default("offline")
+  lastSeen  DateTime?
+  createdAt DateTime  @default(now())
+
+  owner   User   @relation(fields: [ownerId], references: [id])
+  ownerId String
+}
+
+model File {
+  id        String   @id @default(cuid())
+  name      String
+  path      String
+  type      String?
+  size      Int?
+  createdAt DateTime @default(now())
+
+  owner   User?   @relation(fields: [ownerId], references: [id])
+  ownerId String?
+
+  deviceId String?
+
+  incidents Incident[]
+  Share     Share[]
+}
+
+model Incident {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  type        String
+  severity    String
+  description String?
+
+  file   File   @relation(fields: [fileId], references: [id])
+  fileId String
+
+  owner   User?   @relation(fields: [ownerId], references: [id])
+  ownerId String?
+
+  locationLat Float?
+  locationLon Float?
+
+  licensePlate String?
+}
+
+model Folder {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+
+  owner   User   @relation(fields: [ownerId], references: [id])
+  ownerId String
+}
+
+model Share {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  file   File   @relation(fields: [fileId], references: [id])
+  fileId String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  permission String @default("view")
+}
+
 model FriendRequest {
-  id         String   @id @default(cuid())
-  sender     User     @relation("SentRequests", fields: [senderId], references: [id])
-  senderId   String
-  receiver   User     @relation("ReceivedRequests", fields: [receiverId], references: [id])
+  id String @id @default(cuid())
+
+  sender   User   @relation("SentRequests", fields: [senderId], references: [id])
+  senderId String
+
+  receiver   User   @relation("ReceivedRequests", fields: [receiverId], references: [id])
   receiverId String
-  status     String   @default("PENDING") // PENDING, ACCEPTED, REJECTED
-  createdAt  DateTime @default(now())
+
+  status    String   @default("PENDING")
+  createdAt DateTime @default(now())
 }

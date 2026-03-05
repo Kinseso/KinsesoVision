@@ -1,0 +1,15 @@
+import { NextResponse } from "next/server";
+import fs from "fs/promises";
+import path from "path";
+
+export async function POST(req: Request) {
+
+  const { folder } = await req.json();
+
+  const base = path.join(process.cwd(),"public","uploads");
+  const dir = path.join(base,folder);
+
+  await fs.mkdir(dir,{recursive:true});
+
+  return NextResponse.json({success:true});
+}
