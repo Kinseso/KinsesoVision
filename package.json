@@ -12,21 +12,22 @@
     "prisma:studio": "prisma studio"
   },
   "dependencies": {
-    "next": "14.1.0",
-    "react": "^18",
-    "react-dom": "^18",
-    "lucide-react": "^0.344.0",
     "@prisma/client": "^6.1.0",
     "bcrypt": "^5.1.0",
+    "lucide-react": "^0.344.0",
+    "next": "14.1.0",
+    "next-auth": "^4.24.13",
+    "react": "^18",
+    "react-dom": "^18",
     "socket.io": "^4.7.5",
     "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
-    "prisma": "^6.1.0",
-    "typescript": "^5",
+    "@types/bcrypt": "^5.0.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@types/bcrypt": "^5.0.0"
+    "prisma": "^6.1.0",
+    "typescript": "^5"
   }
 }
