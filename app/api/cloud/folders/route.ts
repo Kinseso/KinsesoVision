@@ -26,7 +26,6 @@ export async function GET() {
   })
 
   return NextResponse.json(folders)
-
 }
 
 export async function POST(request: Request) {
@@ -47,11 +46,9 @@ export async function POST(request: Request) {
   const folder = await prisma.folder.create({
     data: {
       name: body.name,
-      ownerId: userId,
-      parentId: body.parentId || null
+      ownerId: userId
     }
   })
 
   return NextResponse.json(folder)
-
 }
