@@ -1,21 +1,32 @@
-import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
+import { NextResponse } from "next/server"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/app/lib/auth"
+import { prisma } from "@/lib/prisma"
 
-export async function GET() {
+export async function GET(){
 
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions)
 
-  if (!session?.user) {
-    return NextResponse.json({ used: 0 });
+  if(!session || !session.user){
+    return NextResponse.json(
+      { error:"Unauthorized"},
+      { status:401 }
+    )
   }
 
+  const userId = (session.user as any).id
+
   const files = await prisma.file.findMany({
-    where: { ownerId: session.user.id }
-  });
+    where:{
+      ownerId:userId
+    }
+  })
 
-  const used = files.reduce((sum,f)=>sum+(f.size || 0),0);
+  const used = files.reduce((sum,f)=>sum+(f.size || 0),0)
 
-  return NextResponse.json({ used });
+  return NextResponse.json({
+    used,
+    files
+  })
 
 }
