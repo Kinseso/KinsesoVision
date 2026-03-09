@@ -51,22 +51,23 @@ model Share {
   file File @relation(fields: [fileId], references: [id])
 }
 
-model Incident {
-  id          String   @id @default(cuid())
-  type        String
-  description String
-  createdAt   DateTime @default(now())
-}
-
 model CameraDevice {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   name      String
   model     String?
   vehicle   String?
   ownerId   String?
   location  String?
-  status    String   @default("offline")
-  createdAt DateTime @default(now())
+  status    String    @default("offline")
+  lastSeen  DateTime? // added for heartbeat route
+  createdAt DateTime  @default(now())
+}
+
+model Incident {
+  id          String   @id @default(cuid())
+  type        String
+  description String
+  createdAt   DateTime @default(now())
 }
 
 model Post {
