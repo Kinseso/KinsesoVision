@@ -1,30 +1,36 @@
-import { NextResponse } from "next/server"
-import { analyzeDrivingData } from "@/lib/ai-driving"
 import { prisma } from "@/lib/prisma"
+import { NextResponse } from "next/server"
 
-export async function POST(req:Request){
+export async function POST(req: Request) {
+  try {
+    const body = await req.json()
 
-const body = await req.json()
+    // Expect an array of events from the AI driving analysis
+    const events = body.events || []
 
-const events = analyzeDrivingData(body)
+    const createdIncidents = []
 
-for(const e of events){
+    for (const e of events) {
+      const incident = await prisma.incident.create({
+        data: {
+          type: e.type,
+          description: e.message
+        }
+      })
 
-await prisma.incident.create({
+      createdIncidents.push(incident)
+    }
 
-data:{
-type:e.type,
-severity:e.severity,
-description:e.message,
-fileId: body.fileId
-}
+    return NextResponse.json({
+      incidents: createdIncidents
+    })
 
-})
+  } catch (error) {
+    console.error("Driving analysis error:", error)
 
-}
-
-return NextResponse.json({
-events
-})
-
+    return NextResponse.json(
+      { error: "Driving analysis failed" },
+      { status: 500 }
+    )
+  }
 }
