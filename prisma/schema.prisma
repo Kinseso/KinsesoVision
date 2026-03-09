@@ -13,18 +13,18 @@ model User {
   name      String?
   createdAt DateTime @default(now())
 
-  files File[]
+  files File[] @relation("UserFiles")
 }
 
 model File {
   id        String   @id @default(cuid())
   name      String?
   url       String?
-  path      String? // used by camera upload route
-  userId    String?
+  path      String?
+  ownerId   String? // added so routes can filter by ownerId
   createdAt DateTime @default(now())
 
-  user   User?   @relation(fields: [userId], references: [id])
+  owner  User?   @relation("UserFiles", fields: [ownerId], references: [id])
   shares Share[]
 }
 
