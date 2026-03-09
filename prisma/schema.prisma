@@ -1,76 +1,47 @@
-datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
-}
-
 generator client {
   provider = "prisma-client-js"
 }
 
-model User {
-  id               String          @id @default(cuid())
-  email            String          @unique
-  name             String?
-  password         String?
-
-  devices          CameraDevice[]
-  files            File[]
-  incidents        Incident[]
-  folders          Folder[]
-  shares           Share[]
-
-  sentRequests     FriendRequest[] @relation("SentRequests")
-  receivedRequests FriendRequest[] @relation("ReceivedRequests")
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-model CameraDevice {
-  id        String   @id @default(cuid())
-  name      String
-  model     String?
-  vehicle   String?
-  status    String   @default("offline")
-  lastSeen  DateTime?
-  createdAt DateTime @default(now())
+model User {
+  id            String          @id @default(cuid())
+  name          String?
+  email         String          @unique
+  password      String?
+  image         String?
 
-  owner     User     @relation(fields: [ownerId], references: [id])
-  ownerId   String
+  createdAt     DateTime        @default(now())
+
+  files         File[]
+  folders       Folder[]
+  devices       CameraDevice[]
+  posts         Post[]
+  shares        Share[]
+  incidents     Incident[]
+
+  friendRequestsSent     FriendRequest[] @relation("FriendRequestSender")
+  friendRequestsReceived FriendRequest[] @relation("FriendRequestReceiver")
 }
 
 model File {
   id        String   @id @default(cuid())
   name      String
   path      String
-  type      String?
   size      Int?
+  type      String?
   createdAt DateTime @default(now())
 
   owner     User?    @relation(fields: [ownerId], references: [id])
   ownerId   String?
 
-  deviceId  String?
+  folder    Folder?  @relation(fields: [folderId], references: [id])
+  folderId  String?
 
-  incidents Incident[]
   shares    Share[]
-}
-
-model Incident {
-  id           String   @id @default(cuid())
-  createdAt    DateTime @default(now())
-
-  type         String
-  severity     String
-  description  String?
-
-  file         File     @relation(fields: [fileId], references: [id])
-  fileId       String
-
-  owner        User?    @relation(fields: [ownerId], references: [id])
-  ownerId      String?
-
-  locationLat  Float?
-  locationLon  Float?
-
-  licensePlate String?
 }
 
 model Folder {
@@ -78,32 +49,75 @@ model Folder {
   name      String
   createdAt DateTime @default(now())
 
-  owner     User     @relation(fields: [ownerId], references: [id])
-  ownerId   String
+  owner     User?    @relation(fields: [ownerId], references: [id])
+  ownerId   String?
+
+  files     File[]
+}
+
+model CameraDevice {
+  id        String   @id @default(cuid())
+  name      String
+  model     String?
+  vehicle   String?
+
+  status    String   @default("offline")
+  lastSeen  DateTime?
+
+  createdAt DateTime @default(now())
+
+  owner     User?    @relation(fields: [ownerId], references: [id])
+  ownerId   String?
+
+  incidents Incident[]
+}
+
+model Incident {
+  id          String   @id @default(cuid())
+  type        String
+  description String?
+
+  createdAt   DateTime @default(now())
+
+  device      CameraDevice? @relation(fields: [deviceId], references: [id])
+  deviceId    String?
+
+  owner       User? @relation(fields: [ownerId], references: [id])
+  ownerId     String?
 }
 
 model Share {
-  id         String   @id @default(cuid())
-  createdAt  DateTime @default(now())
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
 
-  file       File     @relation(fields: [fileId], references: [id])
-  fileId     String
+  file      File?    @relation(fields: [fileId], references: [id])
+  fileId    String?
 
-  user       User     @relation(fields: [userId], references: [id])
-  userId     String
+  owner     User?    @relation(fields: [ownerId], references: [id])
+  ownerId   String?
 
-  permission String   @default("view")
+  token     String   @unique
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  content   String?
+  videoUrl  String?
+
+  createdAt DateTime @default(now())
+
+  owner     User?    @relation(fields: [ownerId], references: [id])
+  ownerId   String?
 }
 
 model FriendRequest {
-  id         String   @id @default(cuid())
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  status      String   @default("pending")
 
-  sender     User     @relation("SentRequests", fields: [senderId], references: [id])
-  senderId   String
+  sender      User @relation("FriendRequestSender", fields: [senderId], references: [id])
+  senderId    String
 
-  receiver   User     @relation("ReceivedRequests", fields: [receiverId], references: [id])
-  receiverId String
-
-  status     String   @default("PENDING")
-  createdAt  DateTime @default(now())
+  receiver    User @relation("FriendRequestReceiver", fields: [receiverId], references: [id])
+  receiverId  String
 }
