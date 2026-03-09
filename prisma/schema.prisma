@@ -7,117 +7,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id            String          @id @default(cuid())
-  name          String?
-  email         String          @unique
-  password      String?
-  image         String?
-
-  createdAt     DateTime        @default(now())
-
-  files         File[]
-  folders       Folder[]
-  devices       CameraDevice[]
-  posts         Post[]
-  shares        Share[]
-  incidents     Incident[]
-
-  friendRequestsSent     FriendRequest[] @relation("FriendRequestSender")
-  friendRequestsReceived FriendRequest[] @relation("FriendRequestReceiver")
-}
-
 model File {
   id        String   @id @default(cuid())
-  name      String
-  path      String
-  size      Int?
-  type      String?
+  name      String?
+  url       String?
   createdAt DateTime @default(now())
-
-  owner     User?    @relation(fields: [ownerId], references: [id])
-  ownerId   String?
-
-  folder    Folder?  @relation(fields: [folderId], references: [id])
-  folderId  String?
 
   shares    Share[]
 }
 
-model Folder {
+model Share {
   id        String   @id @default(cuid())
-  name      String
+  fileId    String
+  token     String   @unique
   createdAt DateTime @default(now())
 
-  owner     User?    @relation(fields: [ownerId], references: [id])
-  ownerId   String?
-
-  files     File[]
-}
-
-model CameraDevice {
-  id        String   @id @default(cuid())
-  name      String
-  model     String?
-  vehicle   String?
-
-  status    String   @default("offline")
-  lastSeen  DateTime?
-
-  createdAt DateTime @default(now())
-
-  owner     User?    @relation(fields: [ownerId], references: [id])
-  ownerId   String?
-
-  incidents Incident[]
+  file      File @relation(fields: [fileId], references: [id])
 }
 
 model Incident {
   id          String   @id @default(cuid())
   type        String
-  description String?
-
+  description String
   createdAt   DateTime @default(now())
 
-  device      CameraDevice? @relation(fields: [deviceId], references: [id])
-  deviceId    String?
-
-  owner       User? @relation(fields: [ownerId], references: [id])
-  ownerId     String?
-}
-
-model Share {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-
-  file      File?    @relation(fields: [fileId], references: [id])
-  fileId    String?
-
-  owner     User?    @relation(fields: [ownerId], references: [id])
-  ownerId   String?
-
-  token     String   @unique
-}
-
-model Post {
-  id        String   @id @default(cuid())
-  content   String?
-  videoUrl  String?
-
-  createdAt DateTime @default(now())
-
-  owner     User?    @relation(fields: [ownerId], references: [id])
-  ownerId   String?
-}
-
-model FriendRequest {
-  id          String   @id @default(cuid())
-  createdAt   DateTime @default(now())
-  status      String   @default("pending")
-
-  sender      User @relation("FriendRequestSender", fields: [senderId], references: [id])
-  senderId    String
-
-  receiver    User @relation("FriendRequestReceiver", fields: [receiverId], references: [id])
-  receiverId  String
+  @@index([type])
 }
