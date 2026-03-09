@@ -46,6 +46,7 @@ model Incident {
 model CameraDevice {
   id        String   @id @default(cuid())
   name      String
+  model     String? // camera model (added to fix error)
   vehicle   String?
   ownerId   String?
   location  String?
