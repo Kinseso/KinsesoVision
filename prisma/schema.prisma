@@ -12,28 +12,25 @@ model User {
   email     String   @unique
   name      String?
   createdAt DateTime @default(now())
-
-  files File[]
+  files     File[]
 }
 
 model File {
   id        String   @id @default(cuid())
   name      String?
+  createdAt DateTime @default(now())
   url       String?
   userId    String?
-  createdAt DateTime @default(now())
-
-  user   User?   @relation(fields: [userId], references: [id])
-  shares Share[]
+  user      User?    @relation(fields: [userId], references: [id])
+  shares    Share[]
 }
 
 model Share {
   id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
   fileId    String
   token     String   @unique
-  createdAt DateTime @default(now())
-
-  file File @relation(fields: [fileId], references: [id])
+  file      File     @relation(fields: [fileId], references: [id])
 }
 
 model Incident {
@@ -46,10 +43,10 @@ model Incident {
 model CameraDevice {
   id        String   @id @default(cuid())
   name      String
-  model     String? // camera model (added to fix error)
-  vehicle   String?
-  ownerId   String?
   location  String?
   status    String   @default("offline")
   createdAt DateTime @default(now())
+  ownerId   String?
+  vehicle   String?
+  model     String?
 }
