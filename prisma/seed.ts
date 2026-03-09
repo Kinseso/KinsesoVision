@@ -1,22 +1,35 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
 
 async function main() {
-  console.log('🌱 Starting seed process...')
 
-  const user = await prisma.user.upsert({
-    where: { id: 'founder-001' },
-    update: {},
-    create: {
-      id: 'founder-001',
-      email: 'founder@kinseso.com',
-      name: 'Kinseso Founder',
-    },
+  // Create default user
+  const user = await prisma.user.create({
+    data: {
+      email: "admin@example.com",
+      name: "Admin User"
+    }
   })
 
-  console.log(`✅ Success! Created user: ${user.email}`)
-  console.log('✨ Seed finished successfully!')
+  // Create sample camera device
+  const device = await prisma.cameraDevice.create({
+    data: {
+      name: "Front Camera",
+      location: "Vehicle Dashboard",
+      status: "active"
+    }
+  })
+
+  // Create sample incident
+  const incident = await prisma.incident.create({
+    data: {
+      type: "system",
+      description: "Initial system test incident"
+    }
+  })
+
+  console.log("Seed completed")
 }
 
 main()
