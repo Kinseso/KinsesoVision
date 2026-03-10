@@ -11,10 +11,12 @@ model User {
   id        String   @id @default(cuid())
   email     String   @unique
   name      String?
+  password  String?
   createdAt DateTime @default(now())
 
-  files   File[]
-  folders Folder[]
+  files     File[]
+  folders   Folder[]
+  posts     Post[]
 }
 
 model Folder {
@@ -23,8 +25,8 @@ model Folder {
   ownerId   String
   createdAt DateTime @default(now())
 
-  owner User   @relation(fields: [ownerId], references: [id])
-  files File[]
+  owner     User   @relation(fields: [ownerId], references: [id])
+  files     File[]
 }
 
 model File {
@@ -37,9 +39,9 @@ model File {
   folderId  String?
   createdAt DateTime @default(now())
 
-  owner  User?   @relation(fields: [ownerId], references: [id])
-  folder Folder? @relation(fields: [folderId], references: [id])
-  shares Share[]
+  owner     User?   @relation(fields: [ownerId], references: [id])
+  folder    Folder? @relation(fields: [folderId], references: [id])
+  shares    Share[]
 }
 
 model Share {
@@ -48,19 +50,19 @@ model Share {
   token     String   @unique
   createdAt DateTime @default(now())
 
-  file File @relation(fields: [fileId], references: [id])
+  file      File @relation(fields: [fileId], references: [id])
 }
 
 model CameraDevice {
-  id        String    @id @default(cuid())
+  id        String   @id @default(cuid())
   name      String
   model     String?
   vehicle   String?
   ownerId   String?
   location  String?
-  status    String    @default("offline")
-  lastSeen  DateTime? // added for heartbeat route
-  createdAt DateTime  @default(now())
+  status    String   @default("offline")
+  lastSeen  DateTime?
+  createdAt DateTime @default(now())
 }
 
 model Incident {
@@ -72,7 +74,10 @@ model Incident {
 
 model Post {
   id        String   @id @default(cuid())
-  title     String
   content   String?
+  videoUrl  String?
+  ownerId   String?
   createdAt DateTime @default(now())
+
+  owner     User? @relation(fields: [ownerId], references: [id])
 }
