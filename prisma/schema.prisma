@@ -17,6 +17,7 @@ model User {
   files     File[]
   folders   Folder[]
   posts     Post[]
+  profile   DatingProfile?
 }
 
 model Folder {
@@ -80,4 +81,39 @@ model Post {
   createdAt DateTime @default(now())
 
   owner     User? @relation(fields: [ownerId], references: [id])
+}
+
+model DatingProfile {
+  id         String   @id @default(cuid())
+  userId     String   @unique
+  bio        String?
+  gender     String?
+  age        Int?
+  city       String?
+  interests  String?
+  lookingFor String?
+  createdAt  DateTime @default(now())
+
+  user       User @relation(fields: [userId], references: [id])
+
+  likesGiven DatingLike[] @relation("likesGiven")
+  likesRecv  DatingLike[] @relation("likesRecv")
+}
+
+model DatingLike {
+  id        String   @id @default(cuid())
+  fromId    String
+  toId      String
+  createdAt DateTime @default(now())
+
+  from DatingProfile @relation("likesGiven", fields: [fromId], references: [id])
+  to   DatingProfile @relation("likesRecv", fields: [toId], references: [id])
+}
+
+model DatingMessage {
+  id        String   @id @default(cuid())
+  fromId    String
+  toId      String
+  message   String
+  createdAt DateTime @default(now())
 }

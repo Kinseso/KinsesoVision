@@ -41,21 +41,33 @@ Kinseso Vision
 <Icons.Camera size={16}/> Devices
 </Link>
 
-<Link href="/cloud" className="flex items-center gap-1 hover:text-blue-400">
+<Link href="/cloud/files" className="flex items-center gap-1 hover:text-blue-400">
 <Icons.Cloud size={16}/> Cloud
 </Link>
 
-<Link href="/social" className="flex items-center gap-1 hover:text-blue-400">
+<Link href="/social/feed" className="flex items-center gap-1 hover:text-blue-400">
 <Icons.Share2 size={16}/> Social
 </Link>
 
-<Link href="/dating" className="flex items-center gap-1 hover:text-blue-400">
+{/* Dating Module */}
+
+<Link href="/dating" className="flex items-center gap-1 hover:text-pink-400">
 <Icons.Heart size={16}/> Dating
 </Link>
 
-<Link href="/match" className="flex items-center gap-1 hover:text-blue-400">
-<Icons.Users size={16}/> Match
+<Link href="/dating/profiles" className="flex items-center gap-1 hover:text-pink-400">
+<Icons.Users size={16}/> Profiles
 </Link>
+
+<Link href="/dating/matches" className="flex items-center gap-1 hover:text-pink-400">
+<Icons.UserCheck size={16}/> Matches
+</Link>
+
+<Link href="/dating/messages" className="flex items-center gap-1 hover:text-pink-400">
+<Icons.MessageCircle size={16}/> Messages
+</Link>
+
+{/* Community */}
 
 <Link href="/feed" className="flex items-center gap-1 hover:text-blue-400">
 <Icons.Globe size={16}/> Community
@@ -64,6 +76,8 @@ Kinseso Vision
 <Link href="/blog" className="flex items-center gap-1 hover:text-blue-400">
 <Icons.Newspaper size={16}/> Blog
 </Link>
+
+{/* Services */}
 
 <Link href="/browser" className="flex items-center gap-1 hover:text-blue-400">
 <Icons.Search size={16}/> Browser
@@ -97,7 +111,7 @@ Kinseso Vision
 <Icons.ShieldCheck size={16}/> Evidence
 </Link>
 
-<Link href="/ai" className="flex items-center gap-1 hover:text-blue-400">
+<Link href="/ai/device/list" className="flex items-center gap-1 hover:text-blue-400">
 <Icons.Brain size={16}/> AI Intelligence
 </Link>
 
@@ -145,9 +159,8 @@ Register
 <ul className="space-y-2 text-zinc-400">
 
 <li><Link href="/devices">DashCam Devices</Link></li>
-<li><Link href="/cloud">Cloud Storage</Link></li>
-<li><Link href="/feed">Community Feed</Link></li>
-<li><Link href="/social">Social Network</Link></li>
+<li><Link href="/cloud/files">Cloud Storage</Link></li>
+<li><Link href="/social/feed">Community Feed</Link></li>
 <li><Link href="/dating">Dating Platform</Link></li>
 
 </ul>
@@ -179,7 +192,7 @@ Register
 <ul className="space-y-2 text-zinc-400">
 
 <li><Link href="/vault">Evidence Vault</Link></li>
-<li><Link href="/ai">AI Intelligence</Link></li>
+<li><Link href="/ai/device/list">AI Intelligence</Link></li>
 <li><Link href="/browser">Web Browser</Link></li>
 
 </ul>
