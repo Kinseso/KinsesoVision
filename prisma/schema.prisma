@@ -98,6 +98,9 @@ model DatingProfile {
 
   likesGiven DatingLike[] @relation("likesGiven")
   likesRecv  DatingLike[] @relation("likesRecv")
+
+  matchA     DatingMatch[] @relation("matchA")
+  matchB     DatingMatch[] @relation("matchB")
 }
 
 model DatingLike {
@@ -116,4 +119,17 @@ model DatingMessage {
   toId      String
   message   String
   createdAt DateTime @default(now())
+}
+
+model DatingMatch {
+  id         String   @id @default(cuid())
+  profileAId String
+  profileBId String
+  score      Float
+  createdAt  DateTime @default(now())
+
+  profileA   DatingProfile @relation("matchA", fields: [profileAId], references: [id])
+  profileB   DatingProfile @relation("matchB", fields: [profileBId], references: [id])
+
+  @@unique([profileAId, profileBId])
 }
